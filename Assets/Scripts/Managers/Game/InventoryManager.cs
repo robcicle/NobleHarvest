@@ -34,27 +34,27 @@ public class InventoryManager : MonoBehaviour
             int quantRand = Random.Range(1, 72);
 
             if (random == 0)
-                AddItem("Johnson", quantRand, testIcon[random], "lol am a johnson");
+                AddItem("Big thing", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 1)
-                AddItem("Okay", quantRand, testIcon[random], "lol am a okayyy");
+                AddItem("Little thing", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 2)
-                AddItem("Bucko", quantRand, testIcon[random], "lol am a buckoooerio");
+                AddItem("Boom", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 3)
-                AddItem("This Shit", quantRand, testIcon[random], "lol am a this shit is getting tough, i dont even know if i like programming anymore, i mastered this shit because im a fucking god");
+                AddItem("WOooah", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 4)
-                AddItem("Is Getting", quantRand, testIcon[random], "lol am a is getting taht moneyyy");
+                AddItem("Crazy", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 5)
-                AddItem("UTTERLY", quantRand, testIcon[random], "lol am a utterly butterly breaded deaded in your headed");
+                AddItem("Im running out of random names", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 6)
-                AddItem("BONKERS", quantRand, testIcon[random], "lol am a bonkers bitch");
+                AddItem("BONKERS", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 7)
-                AddItem("And", quantRand, testIcon[random], "lol am a fuck you");
+                AddItem("Wowzers", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 8)
-                AddItem("Quite Frankly", quantRand, testIcon[random], "lol am a i hate my life");
+                AddItem("Amazing", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 9)
-                AddItem("I Dont!", quantRand, testIcon[random], "lol am a rip peep");
+                AddItem("Crikey", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
             else if (random == 10)
-                AddItem("Want to", quantRand, testIcon[random], "lol am a cocker");
+                AddItem("Moight", quantRand, testIcon[random], "This description is so cool, wow. totally amazing. this is so sick. amazing woah wow cool");
         }
     }
 

@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409437803}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2560,6 +2560,9 @@ MonoBehaviour:
   - {fileID: 2108518140}
   - {fileID: 2106259780}
   - {fileID: 957458381}
+  itemDescIcon: {fileID: 1409437805}
+  itemDescNameText: {fileID: 1526945022}
+  itemDescText: {fileID: 546224259}
   testIcon:
   - {fileID: -120613116, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
   - {fileID: 1252069433, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
@@ -2571,6 +2574,7 @@ MonoBehaviour:
   - {fileID: -737844678, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
   - {fileID: -1343091901, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
   - {fileID: 396494547, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
+  maxItemsNum: 64
 --- !u!114 &1539655296
 MonoBehaviour:
   m_ObjectHideFlags: 0
