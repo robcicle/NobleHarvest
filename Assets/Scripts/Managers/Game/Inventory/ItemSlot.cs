@@ -30,16 +30,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemIcon, string itemDescription)
+    public int AddItem(ItemSO item, int quantity)
     {
         // Check to see if slot is full
         if (isFull)
             return quantity;
 
         // Update Slot Data
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.itemIcon = itemIcon;
+        this.itemName = item.itemName;
+        this.itemDescription = item.itemDescription;
+        this.itemIcon = item.itemIcon;
 
         itemImage.sprite = itemIcon;
         itemImage.enabled = true;
@@ -67,6 +67,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     void OnLeftClick()
     {
+        if (isItemSelected)
+        {
+            inventoryManager.UseItem(itemName);
+            return;
+        }
+
         inventoryManager.DeselectAllSlots();
         selectedPanel.SetActive(true);
         isItemSelected = true;
