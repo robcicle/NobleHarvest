@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     // References to UI objects
-    public GameObject inventoryMenu;  // Reference to the inventory menu
+    [SerializeField]
+    private GameObject inventoryMenu;  // Reference to the inventory menu
     private bool menuActive = false;  // Flag to track whether the inventory menu is open or not
-    public ItemSlot[] itemSlots;      // Array of item slots for the inventory slots
+    [SerializeField]
+    private ItemSlot[] itemSlots;      // Array of item slots for the inventory slots
 
     // Enum for item category types
     public enum ItemCategories
@@ -18,9 +20,12 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Item Description Slot
-    public Image itemDescIcon;         // Reference to the image for the item's icon in the item description
-    public TMP_Text itemDescNameText;  // Reference to the text displaying the item name in the item description
-    public TMP_Text itemDescText;      // Reference to the text displaying the item description in the item description
+    [SerializeField]
+    private Image itemDescIcon;         // Reference to the image for the item's icon in the item description
+    [SerializeField]
+    private TMP_Text itemDescNameText;  // Reference to the text displaying the item name in the item description
+    [SerializeField]
+    private TMP_Text itemDescText;      // Reference to the text displaying the item description in the item description
 
     public int maxItemsNum = 64;  // Maximum number of items allowed in the inventory
 
@@ -124,8 +129,7 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            itemSlots[i].selectedPanel.SetActive(false);  // Deactivate the selected panel
-            itemSlots[i].isItemSelected = false;          // Set isItemSelected flag to false
+            itemSlots[i].DeselectSlot();
         }
     }
 
