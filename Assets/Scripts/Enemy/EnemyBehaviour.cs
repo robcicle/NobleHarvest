@@ -273,8 +273,16 @@ public class EnemyBehaviour : MonoBehaviour
         _targetGameObject = cropList[randomCrop];
 
         // recalibrates the position of the target
-        currentPosition = gameObject.transform;
-        targetPosition = _targetGameObject.transform;
+        if (_targetGameObject == null)
+        {
+             NewTarget() ;
+        }
+        else
+        {
+            currentPosition = gameObject.transform;
+            targetPosition = _targetGameObject.transform;
+    
+        }
     }
 
 
