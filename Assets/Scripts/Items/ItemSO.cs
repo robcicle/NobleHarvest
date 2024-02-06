@@ -16,8 +16,6 @@ public class ItemSO : ScriptableObject
     {
         switch (itemCategory) 
         {
-            case InventoryManager.ItemCategories.None:
-                break;
             case InventoryManager.ItemCategories.Seeds:
                 break;
             case InventoryManager.ItemCategories.Weapons:
