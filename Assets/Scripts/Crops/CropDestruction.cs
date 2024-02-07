@@ -9,7 +9,7 @@ public class Destruction : MonoBehaviour
     public EnemyVariableController _enemyVariableController;
     public EnemyBehaviour _enemyBehaviour;
     //timer
-    float timeRemaining = 3f;
+    float timeRemaining = 6f;
     bool startTimer;
     bool isInteracting;
     GameObject thisCrop;
