@@ -10,7 +10,7 @@ public class ItemSO : ScriptableObject
     public Sprite itemIcon;          // Icon representing the item
 
     // Item Category
-    public InventoryManager.ItemCategories itemCategory = new InventoryManager.ItemCategories();  // Category of the item
+    public InventoryManager.ItemCategories itemCategory = new();  // Category of the item
 
     // Use the item based on its category
     public void UseItem()
@@ -24,7 +24,7 @@ public class ItemSO : ScriptableObject
                 Debug.Log(itemName + " was used.");  // Log that the item was used
                 break;
             default:  // If the item category is not recognized
-                Debug.LogError(itemName + " uses unrecognized category '" + itemCategory + "'");  // Log unrecognized category as an error
+                Debug.LogError("ITEMSO.cs: "+ itemName + " uses unrecognized category '" + itemCategory + "'");  // Log unrecognized category as an error
                 break;
         }
     }

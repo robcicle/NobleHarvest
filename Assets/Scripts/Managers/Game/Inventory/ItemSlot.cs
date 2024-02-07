@@ -22,14 +22,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private GameObject selectedPanel;     // Panel indicating the selected item
     private bool isItemSelected = false;  // Flag indicating if the item is selected
 
-    private InventoryManager inventoryManager;  // Reference to the InventoryManager
-
-    private void Start()
-    {
-        // Find and get a reference to the InventoryManager
-        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-    }
-
     // Add an item to the slot with a specified quantity
     public int AddItem(ItemSO item, int quantity)
     {
@@ -47,11 +39,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         // Update quantity
         this.quantity += quantity;
-        if (this.quantity >= inventoryManager.maxItemsNum)
+        if (this.quantity >= InventoryManager.instance.maxItemsNum)
         {
             // Handle excess items beyond maximum allowed
-            int extraItems = this.quantity - inventoryManager.maxItemsNum;
-            this.quantity = inventoryManager.maxItemsNum;
+            int extraItems = this.quantity - InventoryManager.instance.maxItemsNum;
+            this.quantity = InventoryManager.instance.maxItemsNum;
 
             quantityText.text = this.quantity.ToString();
             quantityText.enabled = true;
@@ -78,17 +70,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (isItemSelected)
         {
-            inventoryManager.UseItem(itemName); // Use the item if it's already selected
+            InventoryManager.instance.UseItem(itemName); // Use the item if it's already selected
             return;
         }
 
         // Deselect all other slots and select this one
-        inventoryManager.DeselectAllSlots();
+        InventoryManager.instance.DeselectAllSlots();
         selectedPanel.SetActive(true);
         isItemSelected = true;
 
         // Update item description data
-        inventoryManager.UpdateDescriptionData(itemName, itemDescription, itemIcon);
+        InventoryManager.instance.UpdateDescriptionData(itemName, itemDescription, itemIcon);
     }
 
     // Handle pointer click event
