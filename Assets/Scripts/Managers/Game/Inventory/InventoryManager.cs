@@ -2,15 +2,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
+    // Singleton instance
+    public static InventoryManager instance = null;
+
     // References to UI objects
     [SerializeField]
     private GameObject inventoryMenu;  // Reference to the inventory menu
     private bool menuActive = false;  // Flag to track whether the inventory menu is open or not
-    [SerializeField]
-    private ItemSlot[] itemSlots;      // Array of item slots for the inventory slots
 
     // Enum for item category types
     public enum ItemCategories
@@ -29,11 +31,31 @@ public class InventoryManager : MonoBehaviour
 
     public int maxItemsNum = 64;  // Maximum number of items allowed in the inventory
 
+    // Item Category data
+    [SerializeField]
+    private TMP_Text categoryText;
+    private ItemCategories selectedCategory = 0;
+    [SerializeField]
+    private GameObject[] categorySlots;
+
+    private void Awake()
+    {
+        // Assert if there is already a controller.
+        Debug.Assert(instance == null,
+            "Multiple instances of singleton has already been created",  // Assertion message for multiple instances
+            this.gameObject  // Object associated with the assertion
+            );
+
+        // Handle of the first manager created.
+        instance = this;  // Assign this instance as the singleton instance
+    }
+
     private void Start()
     {
         // Initialize inventory
         DeselectAllSlots();  // Deselect all item slots
         UpdateDescriptionData(null, null, null);  // Update item description with null values
+        UpdateCategoryData(0);
         UpdateStates();      // Update the states of UI objects
     }
 
@@ -90,6 +112,8 @@ public class InventoryManager : MonoBehaviour
     // Add an item to the inventory with a specified quantity.
     public int AddItem(ItemSO item, int quantity)
     {
+        ItemSlot[] itemSlots = categorySlots[(int)item.itemCategory].GetComponentsInChildren<ItemSlot>();
+
         // Loop through the slots array.
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -109,24 +133,14 @@ public class InventoryManager : MonoBehaviour
     // Add an item to the inventory with its default quantity
     public int AddItem(ItemSO item)
     {
-        for (int i = 0; i < itemSlots.Length; i++)
-        {
-            if (!itemSlots[i].isFull && itemSlots[i].itemName == item.itemName || itemSlots[i].quantity == 0)
-            {
-                int leftOverItems = itemSlots[i].AddItem(item, item.defaultQuantity);  // Add the item to the item slot with its default quantity
-                if (leftOverItems > 0)
-                    leftOverItems = AddItem(item, leftOverItems);  // Add the remaining items recursively
-
-                return leftOverItems;
-            }
-        }
-
-        return item.defaultQuantity;
+        return AddItem(item, item.defaultQuantity);
     }
 
     // Deselect all item slots in the inventory
     public void DeselectAllSlots()
     {
+        ItemSlot[] itemSlots = gameObject.GetComponentsInChildren<ItemSlot>();
+
         for (int i = 0; i < itemSlots.Length; i++)
         {
             itemSlots[i].DeselectSlot();
@@ -136,6 +150,8 @@ public class InventoryManager : MonoBehaviour
     // Check if the inventory is full
     public bool IsInvFull()
     {
+        ItemSlot[] itemSlots = gameObject.GetComponentsInChildren<ItemSlot>();
+
         for (int i = 0; i < itemSlots.Length; i++)
         {
             if (!itemSlots[i].isFull)
@@ -158,5 +174,27 @@ public class InventoryManager : MonoBehaviour
             itemDescIcon.enabled = false;  // Disable the item icon if the sprite is null
         else
             itemDescIcon.enabled = true;   // Enable the item icon if the sprite is not null
+    }
+
+    // Update the category data based on the increment amount
+    public void UpdateCategoryData(int amtToInc)
+    {
+        int enumCount = System.Enum.GetNames(typeof(ItemCategories)).Length; // Get the number of enum values
+
+        // Calculate the index of the next enum value
+        int newIndex = ((int)selectedCategory + amtToInc + enumCount) % enumCount;
+
+        // Update the current enum value
+        selectedCategory = (ItemCategories)newIndex;
+
+        categoryText.text = selectedCategory.ToString();
+
+        for (int i = 0; i < System.Enum.GetNames(typeof(ItemCategories)).Length; i++)
+        {
+            if (i == newIndex)
+                categorySlots[i].SetActive(true);
+            else
+                categorySlots[i].SetActive(false);
+        }
     }
 }
