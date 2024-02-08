@@ -10,12 +10,14 @@ public class EnemyCombat : MonoBehaviour
 
     [Header("References")]
     public Rigidbody2D _rb;
+    [SerializeField] HealthBar _healthBar;
 
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        _healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class EnemyCombat : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        _healthBar.UpdateHealthbar(currentHealth);
         //Debug.Log(currentHealth);
         
     }
