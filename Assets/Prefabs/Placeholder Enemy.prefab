@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6800398142611018578}
-  - component: {fileID: 2806629172569097646}
   - component: {fileID: 1814771995220227673}
   - component: {fileID: 873651602945427702}
+  - component: {fileID: 2806629172569097646}
+  - component: {fileID: -2020084873441532587}
   m_Layer: 0
   m_Name: Placeholder Enemy
   m_TagString: Enemy
@@ -35,25 +36,6 @@ Transform:
   - {fileID: 2630306113430311563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2806629172569097646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399152733921566234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2798a2a749a822e47b93fbc0858fc059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 80
-  _player: {fileID: 0}
-  _targetGameObject: {fileID: 0}
-  _enemyVariableController: {fileID: 0}
-  cropsListParent: {fileID: 0}
-  numberOfCrops: 0
-  cropList: []
 --- !u!50 &1814771995220227673
 Rigidbody2D:
   serializedVersion: 4
@@ -126,6 +108,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2806629172569097646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399152733921566234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2798a2a749a822e47b93fbc0858fc059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 80
+  _player: {fileID: 0}
+  _targetGameObject: {fileID: 0}
+  _enemyVariableController: {fileID: 0}
+  cropsListParent: {fileID: 0}
+  numberOfCrops: 0
+  cropList: []
+--- !u!114 &-2020084873441532587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399152733921566234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf80c13b243e0e14e933b0f6945a64d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  _rb: {fileID: 0}
 --- !u!1 &3431698771012432098
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +216,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9433962, g: 0.09344962, b: 0.09344962, a: 1}
+  m_Color: {r: 0.30015132, g: 0.83863616, b: 0.8962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

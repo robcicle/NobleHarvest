@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3475225054840200988}
   - component: {fileID: 8037922830371969137}
   - component: {fileID: 6871782161934757119}
+  - component: {fileID: -2943324526200133088}
   m_Layer: 6
   m_Name: Placeholder Player
   m_TagString: Player
@@ -189,3 +190,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
+--- !u!114 &-2943324526200133088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827177110239900705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f1fba8f8ed5d84da2c020f2696aaac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireball: {fileID: 595120116640121088, guid: 424dd92245c86f7498030f44d116f5cd, type: 3}
+  projectileSpeed: 1500
