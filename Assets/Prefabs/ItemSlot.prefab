@@ -301,17 +301,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
-  itemDescription: 
   quantity: 0
-  itemIcon: {fileID: 0}
   isFull: 0
   quantityText: {fileID: 3448756593659576730}
   itemImage: {fileID: 7665015964016425840}
   selectedPanel: {fileID: 8061715078696503168}
-  isItemSelected: 0
-  itemDescIcon: {fileID: 0}
-  itemDescNameText: {fileID: 0}
-  itemDescText: {fileID: 0}
 --- !u!1 &8061715078696503168
 GameObject:
   m_ObjectHideFlags: 0
