@@ -27,10 +27,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     //movement
     [Header("Movement")]
+    public Vector2 forceReference;
     Transform currentPosition;
     Transform targetPosition;
     Rigidbody2D _rb;
     Vector2 direction;
+    public bool knockbackHappening;
 
     // CODING NOTES FOR FUTURE IMPROVEMENTS
     // when instantiating crops / crop game objects make sure to add the "Crop" tag to them
@@ -110,20 +112,34 @@ public class EnemyBehaviour : MonoBehaviour
 
             //using the enemies current position and target position
             //calulcate the vector distance between them and apply force to move in that direction
-            Vector2 force = direction * moveSpeed * Time.deltaTime;
-            Debug.Log("Force" + force);
-
-            //if the enemy isnt on the crop then apply a force in that direction
-            if (currentPosition.position != targetPosition.position)
+            if (knockbackHappening == false)
             {
+                Vector2 force = direction * moveSpeed * Time.deltaTime;
+                forceReference = force;
+
+                //Debug.Log("Force" + force);
+
+                //if the enemy isnt on the crop then apply a force in that direction
+                if (currentPosition.position != targetPosition.position)
+                {
+                    _rb.velocity = force;
+                }
+
+                //if the enemy is on the crop, stop moving
+                if (Vector2.Distance(currentPosition.position, targetPosition.position) < 0.1f && _targetGameObject != _player)
+                {
+                    _rb.velocity = new Vector2(0, 0);
+                }
+            }
+
+            //apply knockback here
+            else
+            {
+                Vector2 force = (-40 * direction) * moveSpeed * Time.deltaTime;
                 _rb.velocity = force;
+                StartCoroutine(StopKnockback());
             }
 
-            //if the enemy is on the crop, stop moving
-            if (Vector2.Distance(currentPosition.position, targetPosition.position) < 0.1f)
-            {
-                _rb.velocity = new Vector2(0, 0);
-            }
         }
 
 
@@ -311,5 +327,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         return false;
+    }
+
+    IEnumerator StopKnockback()
+    {
+
+        yield return new WaitForSeconds(0.05f);
+        knockbackHappening = false;
     }
 }

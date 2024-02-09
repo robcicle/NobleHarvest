@@ -25,6 +25,7 @@ public class FireballAttack : MonoBehaviour
    
         _particleSystem = GetComponent<ParticleSystem>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerCombat = GetComponentInParent<PlayerCombat>();
 
         //move the projectile in the direction given from the playercombat script
         _rb.velocity = force;
@@ -48,6 +49,7 @@ public class FireballAttack : MonoBehaviour
         //if the target hit is an enemy then access its script and damage it
         if(collision.gameObject.tag == "Enemy")
         {
+            _playerCombat.slamAttackChargeIndex++;
             _enemyCombat = collision.gameObject.GetComponent<EnemyCombat>();
             _enemyCombat.TakeDamage(damage);
             Explode();
@@ -61,7 +63,7 @@ public class FireballAttack : MonoBehaviour
         _rb.velocity = Vector2.zero; // stops the projectile moving
         Destroy(_spriteRenderer); // removes the sprite 
         _particleSystem.Play(); // plays the particle system
-        Destroy(gameObject, 0.7f); // destroys the object after 0.7 seconds
+        Destroy(gameObject, 0.3f); // destroys the object after 0.7 seconds
     }
 
 }

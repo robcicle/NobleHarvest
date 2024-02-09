@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 873651602945427702}
   - component: {fileID: 2806629172569097646}
   - component: {fileID: -2020084873441532587}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Placeholder Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -180,6 +180,8 @@ MonoBehaviour:
   cropsListParent: {fileID: 0}
   numberOfCrops: 0
   cropList: []
+  forceReference: {x: 0, y: 0}
+  knockbackHappening: 0
 --- !u!114 &-2020084873441532587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,8 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  _rb: {fileID: 0}
   _healthBar: {fileID: 147577250704978584}
+  _playerMovement: {fileID: 0}
 --- !u!1 &527351614294927475
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ GameObject:
   - component: {fileID: 7002809559259206359}
   - component: {fileID: 7327021882373811691}
   - component: {fileID: 7353884118339654872}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +311,7 @@ GameObject:
   - component: {fileID: 2811209678859056630}
   - component: {fileID: 6749783925498925813}
   - component: {fileID: 147577250704978584}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +445,7 @@ GameObject:
   - component: {fileID: 6571731541448793197}
   - component: {fileID: 915856802505733203}
   - component: {fileID: 1319869442884420112}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +520,7 @@ GameObject:
   - component: {fileID: 2847015340906935893}
   - component: {fileID: 6085585760002337027}
   - component: {fileID: 3578004828147548880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
