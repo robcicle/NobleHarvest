@@ -82,7 +82,7 @@ public class PlayerCombat : MonoBehaviour
             //for every enemy inside the radius of the circle get their script, make them take damage and apply force in the opposite direction
             foreach(Collider2D enemy in enemiesInSlamRadius)
             {
-                Debug.Log(enemiesInSlamRadius.Length);
+                //Debug.Log(enemiesInSlamRadius.Length);
                 enemy.GetComponent<EnemyBehaviour>().knockbackHappening = true;
                 enemy.GetComponent<EnemyCombat>().TakeDamage(damage);
             }
