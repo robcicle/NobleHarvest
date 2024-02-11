@@ -15,6 +15,7 @@ public class FireballAttack : MonoBehaviour
     SpriteRenderer _spriteRenderer;
     EnemyCombat _enemyCombat;
 
+
     [Header("Projectile Stats")]
     public float damage = 20;
     public Vector2 force;
@@ -49,7 +50,7 @@ public class FireballAttack : MonoBehaviour
         //if the target hit is an enemy then access its script and damage it
         if(collision.gameObject.tag == "Enemy")
         {
-            _playerCombat.slamAttackChargeIndex++;
+            _playerCombat.SlamMeterIncremenet();
             _enemyCombat = collision.gameObject.GetComponent<EnemyCombat>();
             _enemyCombat.TakeDamage(damage);
             Explode();

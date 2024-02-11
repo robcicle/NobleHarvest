@@ -15,8 +15,8 @@ public class HealthBar : MonoBehaviour
     // this should be called in the start function of whatever is using it 
     public void SetMaxHealth(int maxHealth)
     {
-        _slider.maxValue = maxHealth;
-        _slider.value = maxHealth;
+        _slider.maxValue = maxHealth + 20;
+        _slider.value = maxHealth + 20; ;
         //sets the colour of the fill to the gradient
         _fill.color = _gradient.Evaluate(1f);
     }
@@ -25,7 +25,7 @@ public class HealthBar : MonoBehaviour
     // this should be called whenever somethings health value changes
     public void UpdateHealthbar(float currentHealth)
     {
-        _slider.value = currentHealth;
+        _slider.value = currentHealth + 20;
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 

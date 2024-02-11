@@ -9,13 +9,15 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attack Variables")]
     float attackCooldownTimer;
     bool canAttack = true;
-    public int slamAttackChargeIndex = 0;
+    public int slamRequirement = 8;
+    int slamChargeIndex = 0;
     Collider2D[] enemiesInSlamRadius;
 
     [Header("References")]
     public GameObject _fireball;
     [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] SlamAttackChargeMeter _attackChargeMeter;
 
     [Header("Values to pass")]
     public float projectileSpeed = 20f;
@@ -23,15 +25,20 @@ public class PlayerCombat : MonoBehaviour
     Vector2 currentPosition;
     Vector2 mousePosition;
 
+    private void Start()
+    {
+        _attackChargeMeter.SetMaxCharge(slamRequirement);
+    }
     // Update is called once per frame
     void Update()
     {
-        if(slamAttackChargeIndex >= 8)
-        {
-            Debug.Log("Can slam");
-        }
+        //if(slamAttackChargeIndex >= 8)
+        //{
+        //   Debug.Log("Can slam");
+        //}
 
-   
+
+
 
 
         //checks if left click is being held down
@@ -62,7 +69,7 @@ public class PlayerCombat : MonoBehaviour
 
         //checks if right click was used
         // this does the slam attack
-        if(Input.GetMouseButtonDown(1) && canAttack == true && slamAttackChargeIndex >= 8)
+        if(Input.GetMouseButtonDown(1) && canAttack == true && slamChargeIndex >= slamRequirement)
         {
 
             float damage = 50;
@@ -82,7 +89,8 @@ public class PlayerCombat : MonoBehaviour
 
 
 
-            slamAttackChargeIndex = 0;
+            slamChargeIndex = 0;
+            _attackChargeMeter.UpdateSlamMeter(slamChargeIndex);
             attackCooldownTimer = 1.4f;
             StartCoroutine(AttackCooldown(attackCooldownTimer));
         }
@@ -104,16 +112,25 @@ public class PlayerCombat : MonoBehaviour
     {
         var particleSystemShape = _particleSystem.shape;
         //makes the particles expand like a shockwave
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             _particleSystem.Play();
-            particleSystemShape.radius += 0.2f;
+            particleSystemShape.radius += 0.4f;
            // Debug.Log(particleSystemShape.radius);
-            yield return new WaitForSeconds(0.04f);
+            yield return new WaitForSeconds(0.025f);
         }
 
         //resets the radius of the particle system
+        _particleSystem.Stop();
         particleSystemShape.radius = 0;
+    }
+
+    //used as a middleman betwen the fireball and slamAttackCharge script
+    public void SlamMeterIncremenet()
+    {
+
+        slamChargeIndex++;
+        _attackChargeMeter.UpdateSlamMeter(slamChargeIndex);
     }
 
     //shows the range of the slam in the editor when gizmos are enabled
