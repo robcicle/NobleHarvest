@@ -7,9 +7,9 @@ using UnityEngine.UIElements;
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Attack Variables")]
-    float attackCooldownTimer;
     bool canAttack = true;
     public int slamRequirement = 8;
+    float attackCooldownTimer;
     int slamChargeIndex = 0;
     Collider2D[] enemiesInSlamRadius;
 
@@ -62,7 +62,7 @@ public class PlayerCombat : MonoBehaviour
             var fireballScript = instantiatedFireball.GetComponent<FireballAttack>();
             fireballScript.force = force; //passes on the force to the instantiated object
 
-            attackCooldownTimer = 0.8f;
+            attackCooldownTimer = 0.7f;
             StartCoroutine(AttackCooldown(attackCooldownTimer));
 
         }

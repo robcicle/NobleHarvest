@@ -135,6 +135,7 @@ public class EnemyBehaviour : MonoBehaviour
             //apply knockback here
             else
             {
+                direction = (_player.transform.position - currentPosition.position).normalized;
                 Vector2 force = (-40 * direction) * moveSpeed * Time.deltaTime;
                 _rb.velocity = force;
                 StartCoroutine(StopKnockback());
@@ -330,7 +331,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     IEnumerator StopKnockback()
-    {
+    { 
 
         yield return new WaitForSeconds(0.05f);
         knockbackHappening = false;

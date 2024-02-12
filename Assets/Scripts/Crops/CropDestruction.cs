@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
 
-public class Destruction : MonoBehaviour
+public class CropDestruction : MonoBehaviour
 {
     [Header("References")]
     public EnemyVariableController _enemyVariableController;

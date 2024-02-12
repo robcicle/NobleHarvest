@@ -6,7 +6,7 @@ public class EnemySpawning : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] int enemiesToSpawn = 5;
-    public int difficult = 1;
+    public int difficulty = 1;
 
     [Header("Spawning")]
     public GameObject[] enemyPrefabs;
@@ -31,7 +31,7 @@ public class EnemySpawning : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        for(int i = 0; i < enemiesToSpawn; i++)
+        for(int i = 0; i < Mathf.RoundToInt(difficulty * enemiesToSpawn); i++)
         {
             //instantiates the enemys at a random interval, location and adds them as children to the parent of what the script is attached to
             //int randomTimer = Random.Range(2, 4);
