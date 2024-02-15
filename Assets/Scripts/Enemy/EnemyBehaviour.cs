@@ -185,21 +185,21 @@ public class EnemyBehaviour : MonoBehaviour
 
 
         //randomly choose a different crop in the array
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            randomCrop = Random.Range(0, numberOfCrops);
-            _targetGameObject = cropList[randomCrop];
-            Debug.Log(_targetGameObject);
-        }
+       // if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    randomCrop = Random.Range(0, numberOfCrops);
+        //    _targetGameObject = cropList[randomCrop];
+        //    Debug.Log(_targetGameObject);
+       //}
 
 
 
         // test if the enemy moves, they still path correctly to the crop
         // see if knockback could be implemented
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            currentPosition.position += Vector3.down * 3;
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+       // {
+        //    currentPosition.position += Vector3.down * 3;
+        //}
     }
 
 
