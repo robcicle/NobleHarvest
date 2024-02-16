@@ -24,6 +24,7 @@ public class EnemyCombat : MonoBehaviour
         currentHealth = maxHealth;
         _healthBar.SetMaxHealth(maxHealth);
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
+        _economyScreen = FindObjectOfType<EconomyScreen>();
     }
 
     // Update is called once per frame

@@ -12,9 +12,10 @@ public class EndOfDay : MonoBehaviour
 
     [Header("References")]
     public GamePhase _gamePhase;
-    public GameObject _economyScreen;
+    public GameObject _economyScreenUI;
     public StateController _stateController;
     [SerializeField] GameObject _canInteractText;
+    [SerializeField] EconomyScreen _economyScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,8 @@ public class EndOfDay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && stoodOnDoor == true)
         {
             _stateController.ChangeState(EGameState.Paused); //pauses the game stopping player input
-            _economyScreen.SetActive(true);
+            _economyScreen.UpdateStatScreen();
+            _economyScreenUI.SetActive(true);
             _canInteractText.SetActive(false);
             
         }
@@ -36,7 +38,7 @@ public class EndOfDay : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("rip bozo");
+       // Debug.Log("rip bozo");
         if(collision.gameObject.tag == "Player" && canEndDay == true)
         {
             stoodOnDoor = true;

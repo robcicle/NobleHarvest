@@ -61,21 +61,23 @@ public class GamePhase : MonoBehaviour
             // these case number are just the number of intervals lapped so in-game time would be this number * 7
             case 0:
                 _light2D.color = Color.yellow;
+                _light2D.pointLightInnerRadius = 9;
                 canEndDay = false;
-                Debug.Log("Start Of Day");
+                //Debug.Log("Start Of Day");
                 //set crop growth to 1x modifier
                 break;
 
             case 40:      
-                Debug.Log("Start Of Night");
+                //Debug.Log("Start Of Night");
                 _light2D.color = Color.blue;
+                _light2D.pointLightInnerRadius = 1; // changes the lighting to be dimmer and darker
                 // set crop growth to 0x modifier
                 NightTimeBegun(); //spawn enemies
                 break;
             case 64:
 
                 _endOfDay.canEndDay = true;
-                Debug.Log("Can end day now");
+                //Debug.Log("Can end day now");
                 break;
 
             case 65:
@@ -111,7 +113,7 @@ public class GamePhase : MonoBehaviour
     //used either to skip time currently debugging
     public void StartDay()
     {
-        Debug.Log("It's the morning");
+        //Debug.Log("It's the morning");
         haveEnemiesSpawned = false;
         currentTimeIndex = 0;
         currentTime = 0;
@@ -120,7 +122,7 @@ public class GamePhase : MonoBehaviour
 
     public void SkipToNight()
     {
-        Debug.Log("It's night time");
+        //Debug.Log("It's night time");
         currentTimeIndex = 40;
         _gameTimerUI.NightTime();
     }

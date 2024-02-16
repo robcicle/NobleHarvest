@@ -40,7 +40,7 @@ public class EconomyScreen : MonoBehaviour
     public void StartNewDay()
     {
         _economyScreen.SetActive(false);
-        _stateController.ChangeState(EGameState.Playing);
+        _stateController.ChangeState(EGameState.Paused);
         _gamePhase.StartDay();
 
         goldEarned = 0; // reset the players stats for the day (dont need to touch current gold as that should be whatever it is)
