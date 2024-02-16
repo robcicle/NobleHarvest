@@ -29,6 +29,7 @@ public class GamePhase : MonoBehaviour
     public EnemySpawning _enemySpawning;
     public GameTimerUI _gameTimerUI;
     public Light2D _light2D;
+    public EndOfDay _endOfDay;
 
 
     // Start is called before the first frame update
@@ -67,12 +68,13 @@ public class GamePhase : MonoBehaviour
 
             case 40:      
                 Debug.Log("Start Of Night");
+                _light2D.color = Color.blue;
                 // set crop growth to 0x modifier
                 NightTimeBegun(); //spawn enemies
                 break;
             case 64:
-                _light2D.color = Color.blue;
-                canEndDay = true;
+
+                _endOfDay.canEndDay = true;
                 Debug.Log("Can end day now");
                 break;
 

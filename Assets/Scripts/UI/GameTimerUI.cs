@@ -9,10 +9,12 @@ public class GameTimerUI : MonoBehaviour
     int minutesUpdateInterval;
     int hoursUpdateInterval;
     int hourTime = 7;
+    int dayCounter;
 
     [Header("References")]
-    [SerializeField] TextMeshProUGUI _hours;
-    [SerializeField] TextMeshProUGUI _minutes;
+    [SerializeField] TextMeshProUGUI _hoursText;
+    [SerializeField] TextMeshProUGUI _minutesText;
+    [SerializeField] TextMeshProUGUI _dayCounterText;
 
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class GameTimerUI : MonoBehaviour
     {
         minutesUpdateInterval = 0;
         hoursUpdateInterval = 0;
-        _hours.text = string.Format("{00}", hourTime);
+        _hoursText.text = string.Format("{00}", hourTime);
     }
 
     // Update is called once per frame
@@ -31,34 +33,40 @@ public class GameTimerUI : MonoBehaviour
 
     public void UpdateTime()     
     {
-        //Debug.Log("Spaghetti");
-        minutesUpdateInterval++;
-        hoursUpdateInterval++;
+        if(hourTime < 23)
+        {
+            minutesUpdateInterval++;
+            hoursUpdateInterval++;
+        }
+
 
         if(hoursUpdateInterval % 4 == 0)
         {
             hourTime++;
         }
 
+
         // used to change the time between saying 15,30,45
         switch (minutesUpdateInterval)
         {
            case 0:
-                _minutes.text = string.Format(":{00}", "00");
+                _minutesText.text = string.Format(":{00}", "00");
                 break;
            case 1:
-                _minutes.text = string.Format(":{00}", "15");
+                _minutesText.text = string.Format(":{00}", "15");
                 break;
            case 2:
-                _minutes.text = string.Format(":{00}", "30");
+                _minutesText.text = string.Format(":{00}", "30");
                 break;
            case 3:
-                _minutes.text = string.Format(":{00}", "45");
+                _minutesText.text = string.Format(":{00}", "45");
                 break;
            case 4:
-                _minutes.text = string.Format(":{00}", "00");
+                _minutesText.text = string.Format(":{00}", "00");
                 minutesUpdateInterval = 0;
                 break;
+
+           
           
         }
 
@@ -67,55 +75,56 @@ public class GameTimerUI : MonoBehaviour
         switch (hourTime)
         {
             case 7:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 8:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 9:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 10:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 11:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 12:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 13:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 14:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 15:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 16:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
+
             case 17: //night time starts
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 18: 
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 19:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 20:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 21:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 22:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
             case 23:
-                _hours.text = string.Format("{00}", hourTime);
+                _hoursText.text = string.Format("{00}", hourTime);
                 break;
         }
 
@@ -128,19 +137,21 @@ public class GameTimerUI : MonoBehaviour
     //sets the time and the visuals to the respective hour and minutes
     public void NewDay()
     {
+        dayCounter++;
+        _dayCounterText.text = string.Format("Day:{000}", dayCounter);
         hourTime = 7;
-        _hours.text = string.Format("{00}", hourTime);
+        _hoursText.text = string.Format("{00}", hourTime);
         minutesUpdateInterval = 0;
         hoursUpdateInterval = 0;
-        _minutes.text = string.Format(":{00}", "00");
+        _minutesText.text = string.Format(":{00}", "00");
     }
 
     public void NightTime()
     {
         hourTime = 17;
-        _hours.text = string.Format("{00}", hourTime);
+        _hoursText.text = string.Format("{00}", hourTime);
         minutesUpdateInterval = 0;
         hoursUpdateInterval = 0;
-        _minutes.text = string.Format(":{00}", "00");
+        _minutesText.text = string.Format(":{00}", "00");
     }
 }
