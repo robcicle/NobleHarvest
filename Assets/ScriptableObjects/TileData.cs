@@ -9,7 +9,7 @@ public class TileData : ScriptableObject
 {
     public TileBase[] tiles;
 
-    public bool isWater, isTilledSoil, isNotTilledSoil; // what kind of tile it is
+    public bool isWater, isTilledSoil, isNotTilledSoil, isGrass; // what kind of tile it is
 
 
 

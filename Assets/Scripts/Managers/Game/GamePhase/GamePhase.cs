@@ -60,7 +60,7 @@ public class GamePhase : MonoBehaviour
         {
             // these case number are just the number of intervals lapped so in-game time would be this number * 7
             case 0:
-                _light2D.color = Color.yellow;
+                _light2D.color = Color.gray;
                 _light2D.pointLightInnerRadius = 9;
                 canEndDay = false;
                 //Debug.Log("Start Of Day");

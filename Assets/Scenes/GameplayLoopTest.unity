@@ -10044,7 +10044,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.82880723, b: 0.2235294, a: 1}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -13577,12 +13577,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23b295dc5962cd4094fc0e8c0041077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 716947751}
+  _waterSpell: {fileID: 0}
+  cultivatingSeleceted: 0
+  _player: {fileID: 0}
+  _tileMap: {fileID: 716947751}
+  _tilledSoilTile: {fileID: 11400000, guid: 8dfa3d13b6db5454b8d561e2f53cd9b1, type: 2}
   tileDatas:
   - {fileID: 11400000, guid: 2c91faf27bb567541a6a5006fb3d7a49, type: 2}
   - {fileID: 11400000, guid: a3221c3ac7fbd2c4087c3e4f997a3ebb, type: 2}
   - {fileID: 11400000, guid: 7c9d05fb00ac09e47a79ad80ad889114, type: 2}
-  - {fileID: 11400000, guid: ff0050b784c15d94d95bbbdda657008a, type: 2}
+  - {fileID: 11400000, guid: 81f90a1a37f5fc54d96e21c72e790570, type: 2}
 --- !u!1001 &2091092525
 PrefabInstance:
   m_ObjectHideFlags: 0

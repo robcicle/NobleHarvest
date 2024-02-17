@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4303faa4969be66449e14468f4351cc0, type: 3}
-  m_Name: Normal TIle
+  m_Name: Grass Tile
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 11400000, guid: c12bd34d561aa4b4f913da5b180d9966, type: 2}
   isWater: 0
   isTilledSoil: 0
   isNotTilledSoil: 0
+  isGrass: 1
