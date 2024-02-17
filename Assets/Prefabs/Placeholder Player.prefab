@@ -9826,8 +9826,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 12
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -9897,7 +9897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca470d90d3501ca46866cdee4b25f783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5
+  moveSpeed: 50
 --- !u!114 &-2943324526200133088
 MonoBehaviour:
   m_ObjectHideFlags: 0

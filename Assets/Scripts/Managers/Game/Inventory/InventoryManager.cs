@@ -80,6 +80,8 @@ public class InventoryManager : MonoBehaviour
     // Handle input to open/close inventory
     public void HandleInput(InputAction.CallbackContext cbContext)
     {
+        Debug.Log(cbContext.control.name + " was pressed");
+
         // If the inventory is not open but attempting to 'escape' out, then skip.
         if (cbContext.control.name == "escape" && !menuActive)
             return;
