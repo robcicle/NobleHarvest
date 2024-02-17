@@ -30,13 +30,14 @@ public class GamePhase : MonoBehaviour
     public GameTimerUI _gameTimerUI;
     public Light2D _light2D;
     public EndOfDay _endOfDay;
+    public Light2D _playerLight;
 
 
     // Start is called before the first frame update
     void Start()
     {
         StartDay();
-    
+   
     }
 
     // Update is called once per frame
@@ -60,17 +61,16 @@ public class GamePhase : MonoBehaviour
         {
             // these case number are just the number of intervals lapped so in-game time would be this number * 7
             case 0:
-                _light2D.color = Color.gray;
-                _light2D.pointLightInnerRadius = 9;
+                _playerLight.intensity = 0f; // turn off the light on the player
+                _light2D.color = Color.white; // changes the world lighting 
+                _light2D.pointLightInnerRadius = 9; 
                 canEndDay = false;
                 //Debug.Log("Start Of Day");
                 //set crop growth to 1x modifier
                 break;
 
-            case 40:      
+            case 40:
                 //Debug.Log("Start Of Night");
-                _light2D.color = Color.blue;
-                _light2D.pointLightInnerRadius = 1; // changes the lighting to be dimmer and darker
                 // set crop growth to 0x modifier
                 NightTimeBegun(); //spawn enemies
                 break;
@@ -99,9 +99,13 @@ public class GamePhase : MonoBehaviour
         }
     }
 
-    public void NightTimeBegun()
+    public void NightTimeBegun() // spawn enemies
     {
-        if(haveEnemiesSpawned == false)
+        _playerLight.intensity = 0.5f; // turn on the light on the player
+        _light2D.color = Color.blue;
+        _light2D.pointLightInnerRadius = 1; // changes the lighting to be dimmer and darker
+
+        if (haveEnemiesSpawned == false)
         {
 
             _enemySpawning.SpawnEnemies();
@@ -110,7 +114,7 @@ public class GamePhase : MonoBehaviour
         }
     }
 
-    //used either to skip time currently debugging
+    //used either to skip time
     public void StartDay()
     {
         //Debug.Log("It's the morning");
@@ -120,6 +124,8 @@ public class GamePhase : MonoBehaviour
         _gameTimerUI.NewDay();
     }
 
+
+    // this is mostly a debugging function
     public void SkipToNight()
     {
         //Debug.Log("It's night time");

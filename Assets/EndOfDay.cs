@@ -28,10 +28,10 @@ public class EndOfDay : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && stoodOnDoor == true)
         {
-            _stateController.ChangeState(EGameState.Paused); //pauses the game stopping player input
-            _economyScreen.UpdateStatScreen();
-            _economyScreenUI.SetActive(true);
-            _canInteractText.SetActive(false);
+            Time.timeScale = 0f; //pauses the game stopping player input
+            _economyScreen.UpdateStatScreen(); // updates the stats shown on the end screen
+            _economyScreenUI.SetActive(true); // puts the UI on screen
+            _canInteractText.SetActive(false); // removes the interact text for when the UI is closed
             
         }
     }
@@ -39,7 +39,7 @@ public class EndOfDay : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
        // Debug.Log("rip bozo");
-        if(collision.gameObject.tag == "Player" && canEndDay == true)
+        if(collision.gameObject.tag == "Player" && canEndDay == true) //checks if the player is on the object and the time is correct
         {
             stoodOnDoor = true;
             _canInteractText.SetActive(true);

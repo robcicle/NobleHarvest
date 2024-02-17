@@ -19,19 +19,19 @@ public class WaterSpell : MonoBehaviour
         SetMaxWaterLevel();
     }
 
-    public void FillWaterMeter()
+    public void FillWaterMeter() // makes the current value the max value
     {
         currentWaterLevel = waterCap;
         SetCurrentWaterLevel();
     }
 
-    public void SetMaxWaterLevel()
+    public void SetMaxWaterLevel() // sets the value of what the max water level is
     {
         _slider.maxValue = waterCap;
         _slider.value = 0;
     }
 
-    public void SetCurrentWaterLevel()
+    public void SetCurrentWaterLevel() //updates the meter to display what the current integer is 
     {
         _slider.value = currentWaterLevel;
     }

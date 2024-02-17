@@ -8,13 +8,13 @@ using static StateController;
 public class EconomyScreen : MonoBehaviour
 {
     [Header("Player Stats")]
-    public int goldEarned;
+    public int goldEarned; // the actual numbers that can be altered
     public int currentGold;
     public int enemiesKilled;
     public int cropsPlanted;
 
     [Header("References")]
-    [SerializeField] GameObject _economyScreen;
+    [SerializeField] GameObject _economyScreen; //all the ui elements used to be displayed to the player
     [SerializeField] TextMeshProUGUI _goldEarned;
     [SerializeField] TextMeshProUGUI _currentGold;
     [SerializeField] TextMeshProUGUI _enemiesKilled;
@@ -22,11 +22,6 @@ public class EconomyScreen : MonoBehaviour
     [SerializeField] GamePhase _gamePhase;
     [SerializeField] StateController _stateController;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void UpdateStatScreen()
     {
@@ -39,8 +34,9 @@ public class EconomyScreen : MonoBehaviour
 
     public void StartNewDay()
     {
+        Time.timeScale = 1f;
         _economyScreen.SetActive(false);
-        _stateController.ChangeState(EGameState.Paused);
+        //_stateController.ChangeState(EGameState.Paused);
         _gamePhase.StartDay();
 
         goldEarned = 0; // reset the players stats for the day (dont need to touch current gold as that should be whatever it is)

@@ -10,20 +10,20 @@ public class MapManager : MonoBehaviour
     [Header("Player Interaction Stats")]
     [SerializeField]
     WaterSpell _waterSpell;
-    public bool cultivatingSeleceted;
+    public bool cultivatingSeleceted; // used when radial wheel / interacting is selected
 
     //player reference
     [SerializeField]
-    GameObject _player;
+    GameObject _player; 
     Transform _playerTransform;
 
     [Header("Tiles")]
     [SerializeField]
-    private Tilemap _tileMap;
+    private Tilemap _tileMap; // reference to the tilemap
     [SerializeField]
-    private TileBase _tilledSoilTile;
+    private TileBase _tilledSoilTile; // reference of the tilled soil tile
     [SerializeField]
-    private List<TileData> tileDatas;
+    private List<TileData> tileDatas; // list of the different data types created 
 
 
    
@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        dataFromTiles = new Dictionary<TileBase, TileData>(); // creates the dictionary
+        dataFromTiles = new Dictionary<TileBase, TileData>(); // creates a dictionary of tile data
 
         foreach(var tileData in tileDatas)
         {
@@ -44,26 +44,9 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _player = GameObject.FindWithTag("Player"); // remove all this when the manager gets added to the game scene
-        _waterSpell = _player.GetComponentInChildren<WaterSpell>();
-       
-
-
-    }
     private void Update()
     {
-        if (_player == null)
-        {
-            _player = GameObject.FindWithTag("Player"); // temporary fix while this script is not added to the game scene
-            _waterSpell = _player.GetComponentInChildren<WaterSpell>();
-        }
-
         _playerTransform = _player.transform;
-
-        
-
 
         if (Input.GetMouseButtonDown(0)) // on left click, only gets it once not when held
         {
@@ -74,7 +57,7 @@ public class MapManager : MonoBehaviour
             TileBase clickedTile = _tileMap.GetTile(gridPosition); //gets which tile was clicked on at the position of the mouse cursor
 
             bool isWaterTile = dataFromTiles[clickedTile].isWater;
-            bool isGrass = dataFromTiles[clickedTile].isGrass;
+            //bool isGrass = dataFromTiles[clickedTile].isGrass;
             bool isUntilledSoil = dataFromTiles[clickedTile].isNotTilledSoil;
             bool isTilledSoil = dataFromTiles[clickedTile].isTilledSoil;
 
@@ -129,6 +112,10 @@ public class MapManager : MonoBehaviour
         _tileMap.SetTile(gridPosition, _tilledSoilTile);
         // change sprite to tilled soil
         // sprite should have scriptable object attacthed to it so it should have the data its supposed to have
+
+        //game needs some way of knowing that soil is occupied by a crop
+        //tilled soil that is not occupied by a crop needs to bre reset the following day
+
     }
 
     public void WaterSoil()
@@ -138,6 +125,7 @@ public class MapManager : MonoBehaviour
         // this should be reset when new day begins so player should have to water plant again
     }
 
+    //checks to see that where the player has clicked at and that it is within a certain range from them, if it isnt then they cant interact with it.
     public bool WithinRange()
     {
 
