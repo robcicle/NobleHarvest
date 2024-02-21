@@ -283,6 +283,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
+    //waits for the array to update so that when checking the enemies there arent any null values that cause errors
     IEnumerator WaitForArrayUpdate()
     {
         yield return new WaitForEndOfFrame();

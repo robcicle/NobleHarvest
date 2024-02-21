@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 11400000, guid: c12bd34d561aa4b4f913da5b180d9966, type: 2}
+  - {fileID: 11400000, guid: db4ef87ebbe1b4e44879e6d2096c6cf1, type: 2}
   isWater: 0
   isTilledSoil: 0
   isNotTilledSoil: 0

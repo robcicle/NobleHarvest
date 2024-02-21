@@ -22,10 +22,10 @@ public class EnemySpawning : MonoBehaviour
         //debug 
         // 
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SpawnEnemies();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    SpawnEnemies();
+        //}
     }
 
     public void SpawnEnemies()

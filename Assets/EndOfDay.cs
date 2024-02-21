@@ -26,6 +26,7 @@ public class EndOfDay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // allows the player to end the day and bring up the stat screen
         if (Input.GetKeyDown(KeyCode.R) && stoodOnDoor == true)
         {
             Time.timeScale = 0f; //pauses the game stopping player input
@@ -47,6 +48,7 @@ public class EndOfDay : MonoBehaviour
         }
     }
 
+    // when the player leaves 
     private void OnTriggerExit2D(Collider2D collision)
     {
         stoodOnDoor = false;
