@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     // Item Data
-    public string itemName;          // Name of the item
-    public int quantity;             // Quantity of the item
-    public bool isFull;              // Flag indicating if the slot is full
-    private string itemDescription;  // Description of the item
-    private Sprite itemIcon;         // Icon representing the item
+    public string itemName = "";          // Name of the item
+    public int quantity = 0;             // Quantity of the item
+    public bool isFull = false;              // Flag indicating if the slot is full
+    private string itemDescription = "";  // Description of the item
+    private Sprite itemIcon = null;         // Icon representing the item
 
     // Slot Data
     [SerializeField]
@@ -56,6 +56,35 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         quantityText.enabled = true;
 
         return 0;
+    }
+
+    // Remove an item from a slot.
+    public void RemoveItem(int amountToRemove)
+    {
+        // Take away one from the quantity.
+        this.quantity-= amountToRemove;
+
+        // Now update the itemSlot and other info to remove it.
+        if (this.quantity <= 0)
+        {
+            this.quantity = 0;
+
+            // Update slot data with item information
+            this.itemName = "";
+            this.itemDescription = "";
+            this.itemIcon = null;
+
+            itemImage.sprite = null;
+            itemImage.enabled = false;
+
+            quantityText.text = this.quantity.ToString();
+            quantityText.enabled = false;
+        }
+        // Otherwise just update the quantity UI text.
+        else
+        {
+            quantityText.text = this.quantity.ToString();
+        }
     }
 
     // Deselect the item slot

@@ -5,28 +5,23 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField]
-    private string itemName;
+    private string itemName; // Name of the item
 
     [SerializeField]
-    private int quantity;
+    private int quantity; // Quantity of the item
 
     [SerializeField]
-    private Sprite itemIcon;
+    private Sprite itemIcon; // Icon representing the item
 
     [SerializeField]
-    private string itemDescription;
+    private string itemDescription; // Description of the item
 
-    private InventoryManager inventoryManager;
+    private InventoryManager inventoryManager; // Reference to the InventoryManager
 
     // Start is called before the first frame update
     void Start()
     {
+        // Find and get the InventoryManager component from the "InventoryCanvas" GameObject
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

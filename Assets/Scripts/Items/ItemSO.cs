@@ -19,13 +19,17 @@ public class ItemSO : ScriptableObject
         switch (itemCategory)
         {
             case InventoryManager.ItemCategories.Seeds:  // If the item category is Seeds
+                CropManager.instance.PlaceSeed(); // Call the PlaceSeed function from CropManager
+                InventoryManager.instance.RemoveItem(this); // Remove the used seed from inventory
                 break;
             case InventoryManager.ItemCategories.Weapons:  // If the item category is Weapons
-                Debug.Log(itemName + " was used.");  // Log that the item was used
+                // Currently no action for using weapons
                 break;
             default:  // If the item category is not recognized
-                Debug.LogError("ITEMSO.cs: "+ itemName + " uses unrecognized category '" + itemCategory + "'");  // Log unrecognized category as an error
+                Debug.LogError("ITEMSO.cs: " + itemName + " uses unrecognized category '" + itemCategory + "'");  // Log unrecognized category as an error
                 break;
         }
+
+        Debug.Log(itemName + " was used."); // Log that the item was used
     }
 }

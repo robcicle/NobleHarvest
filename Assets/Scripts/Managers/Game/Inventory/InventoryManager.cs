@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -17,9 +16,14 @@ public class InventoryManager : MonoBehaviour
     // Enum for item category types
     public enum ItemCategories
     {
-        Seeds,
-        Weapons
+        Seeds, // Category for seeds
+        Weapons // Category for weapons
     }
+
+    [SerializeField]
+    private ItemSlot[] seedSlots; // Array to hold seed item slots
+    [SerializeField]
+    private ItemSlot[] weaponSlots; // Array to hold weapon item slots
 
     // Item Description Slot
     [SerializeField]
@@ -34,9 +38,9 @@ public class InventoryManager : MonoBehaviour
     // Item Category data
     [SerializeField]
     private TMP_Text categoryText;
-    private ItemCategories selectedCategory = 0;
+    private ItemCategories selectedCategory = 0; // Default selected category
     [SerializeField]
-    private GameObject[] categorySlots;
+    private GameObject[] categorySlots; // Array to hold category slots
 
     private void Awake()
     {
@@ -53,9 +57,14 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         // Initialize inventory
+
+        // Setup the itemSlots for each category
+        seedSlots = categorySlots[(int)ItemCategories.Seeds].GetComponentsInChildren<ItemSlot>(); // Assign seed slots from the corresponding category slot
+        weaponSlots = categorySlots[(int)ItemCategories.Weapons].GetComponentsInChildren<ItemSlot>(); // Assign weapon slots from the corresponding category slot
+
         DeselectAllSlots();  // Deselect all item slots
         UpdateDescriptionData(null, null, null);  // Update item description with null values
-        UpdateCategoryData(0);
+        UpdateCategoryData(0); // Update the category data with the default selected category
         UpdateStates();      // Update the states of UI objects
     }
 
@@ -67,6 +76,12 @@ public class InventoryManager : MonoBehaviour
             int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
 
             AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+
+            RemoveItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
         }
     }
 
@@ -112,7 +127,7 @@ public class InventoryManager : MonoBehaviour
     // Add an item to the inventory with a specified quantity.
     public int AddItem(ItemSO item, int quantity)
     {
-        ItemSlot[] itemSlots = categorySlots[(int)item.itemCategory].GetComponentsInChildren<ItemSlot>();
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
 
         // Loop through the slots array.
         for (int i = 0; i < itemSlots.Length; i++)
@@ -133,13 +148,30 @@ public class InventoryManager : MonoBehaviour
     // Add an item to the inventory with its default quantity
     public int AddItem(ItemSO item)
     {
-        return AddItem(item, item.defaultQuantity);
+        return AddItem(item, item.defaultQuantity); // Add item with default quantity
+    }
+
+    // Remove an item from the inventory.
+    public void RemoveItem(ItemSO item, int amountToRemove = 1)
+    {
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+
+        // Loop through the slots array.
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (itemSlots[i].itemName == item.itemName && itemSlots[i].quantity > 0)
+            {
+                itemSlots[i].RemoveItem(amountToRemove);  // Remove one of the item from the item slot.
+
+                return;
+            }
+        }
     }
 
     // Deselect all item slots in the inventory
     public void DeselectAllSlots()
     {
-        ItemSlot[] itemSlots = gameObject.GetComponentsInChildren<ItemSlot>();
+        ItemSlot[] itemSlots = gameObject.GetComponentsInChildren<ItemSlot>(); // Get all item slots
 
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -196,5 +228,28 @@ public class InventoryManager : MonoBehaviour
             else
                 categorySlots[i].SetActive(false);
         }
+    }
+
+    // Get item slots corresponding to the specified category
+    ItemSlot[] GetSlotsFromCategory(ItemCategories category)
+    {
+        ItemSlot[] itemSlots;
+
+        // Switch case to determine the category
+        switch (category)
+        {
+            case InventoryManager.ItemCategories.Seeds:  // If the item category is Seeds
+                itemSlots = seedSlots;  // Assign seed slots
+                break;
+            case InventoryManager.ItemCategories.Weapons:  // If the item category is Weapons
+                itemSlots = weaponSlots;  // Assign weapon slots
+                break;
+            default:  // If the item category is not recognized
+                itemSlots = null;  // Assign null if category is not recognized
+                Debug.LogError("INVENTORYMANAGER.cs: request to get unrecognized category '" + category + "'");  // Log unrecognized category as an error
+                break;
+        }
+
+        return itemSlots;  // Return the item slots corresponding to the specified category
     }
 }
