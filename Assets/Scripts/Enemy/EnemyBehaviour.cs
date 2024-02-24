@@ -91,8 +91,7 @@ public class EnemyBehaviour : MonoBehaviour
         targetPosition = _targetGameObject.transform;
         NewTarget();
 
-        horizontal = _rb.velocity.x; // checks the horizontal speed of the enemy
-        FlipSprite();
+
     }
 
     //handles physics
@@ -157,10 +156,15 @@ public class EnemyBehaviour : MonoBehaviour
     //handles pathfinding
     private void Update()
     {
+
+        horizontal = _rb.velocity.x; // checks the horizontal speed of the enemy
+        FlipSprite(); // flips the sprite to the correct direction 
+
+
         // ensures that the index of crops remaining is correct
         numberOfCrops = _enemyVariableController.cropsRemaining;
 
-        //updates the array and removes any null valuse accordinly
+        //updates the array and removes any null values accordingly
         cropList = new GameObject[numberOfCrops];
         for (int i = 0; i < numberOfCrops; i++)
         {

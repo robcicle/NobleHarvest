@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Tilled Soil
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 8dfa3d13b6db5454b8d561e2f53cd9b1, type: 2}
   - {fileID: 11400000, guid: 9cafd0c63915f994088bcb4c04a32281, type: 2}
   - {fileID: 11400000, guid: b875c1bac0c9ddb42bf09675cf7a0e6d, type: 2}
+  - {fileID: 11400000, guid: 49127a81af6c3ea418d747cdaadbb2c1, type: 2}
+  - {fileID: 11400000, guid: f0523660f3af67744bccaade4f532942, type: 2}
   isWater: 0
   isTilledSoil: 1
   isNotTilledSoil: 0
   isGrass: 0
-  tileIsOccupied: 0
+  isWateredSoil: 0

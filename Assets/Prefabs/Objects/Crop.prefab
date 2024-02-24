@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.491358, y: -0.41080767, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,6 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenGrowth: 15
   maxStages: 4
+  _gamePhase: {fileID: 0}
+  growthModifier: 1
+  _cropSlotManager: {fileID: 0}
+  _interactableTileMap: {fileID: 0}
 --- !u!114 &6730366487805867281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyVariableController: {fileID: 0}
   _enemyBehaviour: {fileID: 0}
+  _mapManager: {fileID: 0}
 --- !u!50 &7995567147278277687
 Rigidbody2D:
   serializedVersion: 4

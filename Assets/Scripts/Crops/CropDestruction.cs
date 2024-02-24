@@ -8,16 +8,18 @@ public class CropDestruction : MonoBehaviour
     [Header("References")]
     public EnemyVariableController _enemyVariableController;
     public EnemyBehaviour _enemyBehaviour;
+    public MapManager _mapManager;
     //timer
     float timeRemaining = 6f;
     bool startTimer;
     bool isInteracting;
     GameObject thisCrop;
+
     // Start is called before the first frame update
     void Start()
     {
         thisCrop = gameObject;
-       
+       _mapManager = GameObject.Find("GameManager").GetComponent<MapManager>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,7 @@ public class CropDestruction : MonoBehaviour
             }
             else
             {
+                ClearTileSpace();
                 _enemyBehaviour.DestroyCrop(thisCrop);
             }
            
@@ -73,6 +76,11 @@ public class CropDestruction : MonoBehaviour
            // Debug.Log(timeRemaining);
             startTimer = false;
         }
+    }
+
+    public void ClearTileSpace()
+    {
+        _mapManager.CropRemoved(transform.position);
     }
 
 }

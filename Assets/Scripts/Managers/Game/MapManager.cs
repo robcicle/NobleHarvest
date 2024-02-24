@@ -221,7 +221,7 @@ public class MapManager : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //gets mouse position
         float distance = Vector2.Distance(_playerTransform.position, mousePosition);
 
-        if (distance < 2f) // if the player is within a 2 tile range then allow the input
+        if (distance < 2.5f) // if the player is within a 2 tile range then allow the input
         {
             return true;
         }
@@ -233,5 +233,11 @@ public class MapManager : MonoBehaviour
             
             return false;
         }
+    }
+
+    public void CropRemoved(Vector2 cropPosition) // call this when a crop is destroyed or harvested
+    {
+        Vector3Int gridPosition = _interactableTileMap.WorldToCell(cropPosition);
+        _cropSlotManager.cropSlots.Remove(gridPosition);
     }
 }

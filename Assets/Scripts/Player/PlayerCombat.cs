@@ -59,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
             Vector2 force = (direction * projectileSpeed); // creates a force in that direction
 
 
-            GameObject instantiatedFireball = Instantiate(_fireball, currentPosition, transform.rotation, this.transform);
+            GameObject instantiatedFireball = Instantiate(_fireball, currentPosition, transform.rotation);
             var fireballScript = instantiatedFireball.GetComponent<FireballAttack>();
             fireballScript.force = force; //passes on the force to the instantiated object
 
