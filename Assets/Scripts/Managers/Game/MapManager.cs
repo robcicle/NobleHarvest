@@ -148,7 +148,7 @@ public class MapManager : MonoBehaviour
 
     public void PlantCrop(Vector3Int gridPosition)
     {
-        _cropSelected = _cropManager.cropPrefab; // this selects the crop to be used, referenced from the inventory
+        //_cropSelected = ItemManager.instance.itemSO[0]; // this selects the crop to be used, referenced from the inventory
         // requires a second check to see if there are any remaining, if the number count is zero, do nothing.
         // if the number of items in  the inventory is greater than 0 then use that as reference to instantiate
         // if it is 0 then remove the reference to it so that is doesnt plant anything

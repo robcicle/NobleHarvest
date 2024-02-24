@@ -10,6 +10,7 @@ public class CropManager : MonoBehaviour
 
     public GameObject cropPrefab; // Prefab for the crop object
 
+
     private void Awake()
     {
         // Assert if there is already a controller.
@@ -25,10 +26,11 @@ public class CropManager : MonoBehaviour
     // Function to place a seed
     public void PlaceSeed()
     {
-        GameObject soilGO = GameObject.FindGameObjectWithTag("Soil"); // Find the soil game object using tag
+     
+       // GameObject soilGO = GameObject.FindGameObjectWithTag("Soil"); // Find the soil game object using tag
 
-        GameObject placedCrop = Instantiate(cropPrefab); // Instantiate a crop prefab
+        //GameObject placedCrop = Instantiate(cropPrefab); // Instantiate a crop prefab
 
-        placedCrop.transform.position = soilGO.transform.position; // Set the position of the crop object to the position of the soil
+        // placedCrop.transform.position = soilGO.transform.position; // Set the position of the crop object to the position of the soil
     }
 }

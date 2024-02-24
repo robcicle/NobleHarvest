@@ -42,6 +42,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private GameObject[] categorySlots; // Array to hold category slots
 
+    // lets the map manager know which crop is selected
+    MapManager mapManager;
+
     private void Awake()
     {
         // Assert if there is already a controller.
@@ -56,6 +59,8 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        mapManager = GameObject.Find("GameManager").GetComponent<MapManager>();
+
         // Initialize inventory
 
         // Setup the itemSlots for each category
@@ -119,6 +124,7 @@ public class InventoryManager : MonoBehaviour
             if (ItemManager.instance.itemSOs[i].itemName == itemName)
             {
                 ItemManager.instance.itemSOs[i].UseItem();  // Use the item
+                mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject;
                 return;
             }
         }

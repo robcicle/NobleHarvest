@@ -88,10 +88,10 @@ public class GamePhase : MonoBehaviour
 
 
         // debugging
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            StartDay();
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+         //   StartDay();
+        //}
         // debugging
         if (Input.GetKeyDown(KeyCode.P))
         {

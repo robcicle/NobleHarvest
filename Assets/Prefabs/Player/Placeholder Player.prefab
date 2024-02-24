@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6810800025794455253}
   - component: {fileID: 6057763376329898927}
   - component: {fileID: 8893256644364477946}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5760833931534203836}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: SlamAttackStuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 990085467365828621}
   - component: {fileID: 5091226659657911977}
   - component: {fileID: 4708585658439500819}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 970559566284595775}
   - component: {fileID: 2095881977128086700}
   - component: {fileID: 909485238760648311}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5186,7 +5186,7 @@ GameObject:
   - component: {fileID: 7147839508405208597}
   - component: {fileID: 3319240435487209517}
   - component: {fileID: 5745745250252600766}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SlamMeterParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5202,7 +5202,7 @@ Transform:
   m_GameObject: {fileID: 3724054073076436126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 13.4800005, y: -1.06, z: -0.01}
+  m_LocalPosition: {x: 13.4800005, y: -1.06, z: -2.74}
   m_LocalScale: {x: 0.06689827, y: 0.09364309, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10152,7 +10152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: cdd6ddac956a1ae43a0b828763554d23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10279,7 +10279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7921080388988249547}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WaterMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10318,7 +10318,7 @@ GameObject:
   - component: {fileID: 5860658028508724739}
   - component: {fileID: 2244948817039656512}
   - component: {fileID: 8238187809001765317}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10395,7 +10395,7 @@ GameObject:
   - component: {fileID: 8997529675602713663}
   - component: {fileID: 8443891764234011911}
   - component: {fileID: 8950387087330221023}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10444,7 +10444,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8997529675602713663
 MonoBehaviour:
@@ -10650,7 +10650,7 @@ GameObject:
   - component: {fileID: 3849465504428811849}
   - component: {fileID: 1228017289913393451}
   - component: {fileID: 5911460969782392136}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: BackForSlamMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10725,7 +10725,7 @@ GameObject:
   - component: {fileID: 196997227689262378}
   - component: {fileID: 8939193556307484699}
   - component: {fileID: 3041000218701261591}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10800,7 +10800,7 @@ GameObject:
   - component: {fileID: 1612516823101388994}
   - component: {fileID: 7247699356827912298}
   - component: {fileID: 6108092603127430975}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WaterMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10906,7 +10906,7 @@ GameObject:
   - component: {fileID: 8983369462123564929}
   - component: {fileID: 7768856316159683749}
   - component: {fileID: 8913383787041106270}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: SlamAttackMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

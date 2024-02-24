@@ -23,12 +23,16 @@ public class Crop : MonoBehaviour
     public float growthModifier  = 1f; // used to switch between day, night and watered growth.
                                        //1 for day, 0 for night and 1.25x 
 
+    // deals with the crops position in relation with the grid
     public CropSlotManager _cropSlotManager; //used to check if the soil is watered or not 
     Vector3Int currentPosition;
     [SerializeField]
     Tilemap _interactableTileMap;
 
-
+    //list of sprites to change to
+    [SerializeField]
+    List<Sprite> cropSprites;
+    SpriteRenderer _spriteRenderer;
 
 
 
@@ -44,7 +48,9 @@ public class Crop : MonoBehaviour
         currentPosition = _interactableTileMap.WorldToCell(gameObject.transform.position); //gets the grid location of the gameobject
 
         isGrowing = true;  // Start the growth process
-        GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the initial sprite based on the growth state
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = cropSprites[0];
+        //GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the initial sprite based on the growth state
     }
 
     // Update is called once per frame
@@ -91,6 +97,11 @@ public class Crop : MonoBehaviour
         }
 
         growthState++; // Increment the growth stage
-        GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the sprite for the new growth stage
+
+
+        //int cropSpriteNum = 0;
+        //cropSpriteNum++;
+        _spriteRenderer.sprite = cropSprites[growthState - 1]; // goes through the list of sprites for the crop game object
+        //GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the sprite for the new growth stage
     }
 }

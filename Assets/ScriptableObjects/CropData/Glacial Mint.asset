@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c7d68b76dfb3be4486cb40090eb663a, type: 3}
-  m_Name: Eldritch Mushroom
+  m_Name: Glacial Mint
   m_EditorClassIdentifier: 
-  itemName: Eldritch Mushroom
-  itemDescription: 
+  itemName: Glacial Mint
+  itemDescription: Not even a troll would be willing to give themselves brain freeze
+    from one of these.
   defaultQuantity: 1
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 42b497be4f271134d9355cea17b2f091, type: 3}
+  _gameObject: {fileID: 326029365247321544, guid: f0c303b1f37ff85448c491fd65432a5b, type: 3}
   itemCategory: 0
