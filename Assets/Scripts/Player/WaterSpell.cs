@@ -7,7 +7,7 @@ public class WaterSpell : MonoBehaviour
 {
     [Header("Variables")]
     public int waterCap = 15;
-    public int currentWaterLevel;
+    public int currentWaterLevel = 0;
 
     [Header("References")]
     public Slider _slider;
