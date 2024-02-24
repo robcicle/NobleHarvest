@@ -8,6 +8,7 @@ public class ItemSO : ScriptableObject
     public string itemDescription;   // Description of the item
     public int defaultQuantity = 1;  // Default quantity of the item
     public Sprite itemIcon;          // Icon representing the item
+    public GameObject _gameObject; // used for crops, refers to the crop to be planted
 
     // Item Category
     public InventoryManager.ItemCategories itemCategory = new();  // Category of the item

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using Random = UnityEngine.Random;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -33,6 +34,10 @@ public class EnemyBehaviour : MonoBehaviour
     Rigidbody2D _rb;
     Vector2 direction;
     public bool knockbackHappening;
+
+    //sprite changes
+    bool isFacingRight;
+    float horizontal;
 
     // CODING NOTES FOR FUTURE IMPROVEMENTS
     // when instantiating crops / crop game objects make sure to add the "Crop" tag to them
@@ -85,6 +90,8 @@ public class EnemyBehaviour : MonoBehaviour
         //if the positions of the gameobjects are not equal then call the function to move the enemy
         targetPosition = _targetGameObject.transform;
         NewTarget();
+
+
     }
 
     //handles physics
@@ -149,10 +156,15 @@ public class EnemyBehaviour : MonoBehaviour
     //handles pathfinding
     private void Update()
     {
+
+        horizontal = _rb.velocity.x; // checks the horizontal speed of the enemy
+        FlipSprite(); // flips the sprite to the correct direction 
+
+
         // ensures that the index of crops remaining is correct
         numberOfCrops = _enemyVariableController.cropsRemaining;
 
-        //updates the array and removes any null valuse accordinly
+        //updates the array and removes any null values accordingly
         cropList = new GameObject[numberOfCrops];
         for (int i = 0; i < numberOfCrops; i++)
         {
@@ -185,21 +197,21 @@ public class EnemyBehaviour : MonoBehaviour
 
 
         //randomly choose a different crop in the array
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            randomCrop = Random.Range(0, numberOfCrops);
-            _targetGameObject = cropList[randomCrop];
-            Debug.Log(_targetGameObject);
-        }
+       // if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    randomCrop = Random.Range(0, numberOfCrops);
+        //    _targetGameObject = cropList[randomCrop];
+        //    Debug.Log(_targetGameObject);
+       //}
 
 
 
         // test if the enemy moves, they still path correctly to the crop
         // see if knockback could be implemented
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            currentPosition.position += Vector3.down * 3;
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+       // {
+        //    currentPosition.position += Vector3.down * 3;
+        //}
     }
 
 
@@ -283,6 +295,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
+    //waits for the array to update so that when checking the enemies there arent any null values that cause errors
     IEnumerator WaitForArrayUpdate()
     {
         yield return new WaitForEndOfFrame();
@@ -335,5 +348,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         knockbackHappening = false;
+    }
+
+    public void FlipSprite()
+    {
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+
+            Vector3 localScale = transform.localScale;
+            isFacingRight = !isFacingRight;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }

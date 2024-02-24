@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4303faa4969be66449e14468f4351cc0, type: 3}
+  m_Name: GenericTile
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: 62c7eeab68abbab48b84de4ecea8b654, type: 2}
+  - {fileID: 11400000, guid: 2ae51ade51f13fc45a4d6ca686952142, type: 2}
+  - {fileID: 11400000, guid: 8d80ad10ecfa74b4ea283c126e910743, type: 2}
+  - {fileID: 11400000, guid: fa8f8f77c5541644b919bc11ad6bae6a, type: 2}
+  - {fileID: 11400000, guid: 09fd4f9bebeda2b41ba32813fa654d9a, type: 2}
+  - {fileID: 11400000, guid: 4b74be18d1a3a434e880608dcb153509, type: 2}
+  - {fileID: 11400000, guid: a690b8d69973cb44a85ef92d335f8cb6, type: 2}
+  - {fileID: 11400000, guid: e83205d2d9adadc4494ea188d8008de3, type: 2}
+  - {fileID: 11400000, guid: ebba57ad0c6aee9449ff8ed3e3b3502a, type: 2}
+  - {fileID: 11400000, guid: 8dc54ecd183c2094481b6cd4cf6b3bc3, type: 2}
+  isWater: 0
+  isTilledSoil: 0
+  isNotTilledSoil: 0
+  isGrass: 0
+  tileIsOccupied: 0

@@ -18,6 +18,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] SlamAttackChargeMeter _attackChargeMeter;
+    [SerializeField] Camera _playerCamera;
 
     [Header("Values to pass")]
     public float projectileSpeed = 20f;
@@ -58,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
             Vector2 force = (direction * projectileSpeed); // creates a force in that direction
 
 
-            GameObject instantiatedFireball = Instantiate(_fireball, currentPosition, transform.rotation, this.transform);
+            GameObject instantiatedFireball = Instantiate(_fireball, currentPosition, transform.rotation);
             var fireballScript = instantiatedFireball.GetComponent<FireballAttack>();
             fireballScript.force = force; //passes on the force to the instantiated object
 
@@ -126,7 +127,7 @@ public class PlayerCombat : MonoBehaviour
     }
 
     //used as a middleman betwen the fireball and slamAttackCharge script
-    public void SlamMeterIncremenet()
+    public void SlamMeterIncrement()
     {
 
         slamChargeIndex++;

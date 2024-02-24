@@ -68,7 +68,6 @@ MonoBehaviour:
   - {fileID: 1967977675, guid: dd7cf967453b6284c84ef83fd40d8453, type: 3}
   - {fileID: 336135884, guid: dd7cf967453b6284c84ef83fd40d8453, type: 3}
   - {fileID: -2094541000, guid: dd7cf967453b6284c84ef83fd40d8453, type: 3}
-  - {fileID: 592757489, guid: 8f55f48de9243af4aa645288ec1e9e90, type: 3}
   cropPrefab: {fileID: 326029365247321544, guid: 5db4a118433d0a74a9592c379e885bb9, type: 3}
 --- !u!114 &7091757734707774532
 MonoBehaviour:
@@ -106,3 +105,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _gamePhase: {fileID: 0}

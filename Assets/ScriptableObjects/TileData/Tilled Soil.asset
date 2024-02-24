@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4303faa4969be66449e14468f4351cc0, type: 3}
+  m_Name: Tilled Soil
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: 9cafd0c63915f994088bcb4c04a32281, type: 2}
+  - {fileID: 11400000, guid: b875c1bac0c9ddb42bf09675cf7a0e6d, type: 2}
+  - {fileID: 11400000, guid: 49127a81af6c3ea418d747cdaadbb2c1, type: 2}
+  - {fileID: 11400000, guid: f0523660f3af67744bccaade4f532942, type: 2}
+  isWater: 0
+  isTilledSoil: 1
+  isNotTilledSoil: 0
+  isGrass: 0
+  isWateredSoil: 0

@@ -12,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     //public Rigidbody2D _rb;
     [SerializeField] HealthBar _healthBar;
     EnemyBehaviour _enemyBehaviour;
+    [SerializeField] EconomyScreen _economyScreen;
 
     [Header("Player References")]
     [SerializeField] PlayerMovement _playerMovement;
@@ -23,6 +24,7 @@ public class EnemyCombat : MonoBehaviour
         currentHealth = maxHealth;
         _healthBar.SetMaxHealth(maxHealth);
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
+        _economyScreen = FindObjectOfType<EconomyScreen>();
     }
 
     // Update is called once per frame
@@ -44,7 +46,9 @@ public class EnemyCombat : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);    
+        _economyScreen.enemiesKilled++;
+        Destroy(gameObject); 
+     
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

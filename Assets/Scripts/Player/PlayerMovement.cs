@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,11 +12,20 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     public float moveSpeed = 20.0f;
     bool inputDisabled = false;
+    float horizontal;
+    bool isFacingRight;
 
     private void Start()
     {
         // Assign our member rigidbody to our player's one.
         rb = GetComponent<Rigidbody2D>();
+
+    }
+
+    public void Update()
+    {
+        horizontal = rb.velocity.x; // checks the horizontal speed of the enemy
+        FlipSprite(); // flips the sprite to the correct direction 
     }
 
     // Called per physics update
@@ -53,5 +63,17 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         inputDisabled = false;
+    }
+
+    public void FlipSprite() // flips the players sprite left and right
+    {
+        if (!isFacingRight && horizontal < 0f || isFacingRight && horizontal > 0f)
+        {
+
+            Vector3 localScale = transform.localScale;
+            isFacingRight = !isFacingRight;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }
