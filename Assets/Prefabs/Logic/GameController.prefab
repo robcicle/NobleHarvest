@@ -106,3 +106,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _gamePhase: {fileID: 0}

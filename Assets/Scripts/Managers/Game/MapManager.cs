@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     WaterSpell _waterSpell;
     public bool cultivatingSelected; // used when radial wheel / interacting is selected
+    public int waterSoilInterval = 60; // how often the player must water the crops in seconds
 
     //player reference
     [SerializeField]
@@ -26,15 +27,21 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private TileBase _tilledSoilTile; // reference of the tilled soil tile
     [SerializeField]
+    private TileBase _wateredSoilTile;
+    [SerializeField]
     private List<TileData> tileDatas; // list of the different data types created 
 
     [Header("Crop Selected")] // link from inventory to know which crop object to instantiate
     public GameObject _cropSelected;
     [SerializeField]
     GameObject _cropListParent;
+    CropManager _cropManager;
 
     [Header("References")]
-    public CropSlotManagaer _cropSlotManager;
+    public CropSlotManager _cropSlotManager;
+    public EconomyScreen _economyScreen;
+
+
 
 
    
@@ -44,6 +51,8 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
+        _cropManager = GetComponent<CropManager>();
+
         dataFromTiles = new Dictionary<TileBase, TileData>(); // creates a dictionary of tile data
 
         foreach(var tileData in tileDatas)
@@ -101,26 +110,60 @@ public class MapManager : MonoBehaviour
                      // cultivate soil and change it to tilled soil
                 }
 
-                if (isTilledSoil == true && _cropSlotManager.CheckTileEmpty(gridPosition) == true)
+                if (isTilledSoil == true && _cropSlotManager.CheckTileEmpty(gridPosition) == true ) // if the slot is empty, try plant a seed
                 {
-                    Debug.Log("Planting seed");
-                    Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+                    if(_cropSlotManager.CheckTileWatered(gridPosition) == true) // can also be planted if the soil is watered
+                    {
+                         PlantCrop(gridPosition);
+                    }
+                    else
+                    {
+                         PlantCrop(gridPosition);
+                    }
+                    //Debug.Log("Planting seed");
+
+
                     //_cropSlotManager.cropSlots.Add(gridPosition , true);
-                 
+
                     // if plant seeds action is selected
                     // can plant seeds here
-                    
+
 
                 }
-
-                if(isTilledSoil == true && _cropSlotManager.CheckTileEmpty(gridPosition) == false) // a plant is currently here and can be watered
+                else if (_cropSlotManager.CheckTileEmpty(gridPosition) == false && _waterSpell.currentWaterLevel > 0) // if the grid slot is occupied water the soil instead if there is water available
                 {
-                    Debug.Log("Watering");
-                    WaterSoil();
+
+                        Debug.Log("Watering");
+                        WaterSoil(gridPosition);
+                    
+                    
+                    //    Debug.Log("Tile is watered already");
+                    
 
 
                 }
             }
+        }
+    }
+
+    public void PlantCrop(Vector3Int gridPosition)
+    {
+        _cropSelected = _cropManager.cropPrefab; // this selects the crop to be used, referenced from the inventory
+        // requires a second check to see if there are any remaining, if the number count is zero, do nothing.
+        // if the number of items in  the inventory is greater than 0 then use that as reference to instantiate
+        // if it is 0 then remove the reference to it so that is doesnt plant anything
+
+        if(_cropSelected != null) // if there is a game object selected, plant it 
+        {
+            Debug.Log("Planted crop");
+            _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
+            Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+            _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
+        }
+        else
+        {
+            Debug.Log("No crop selected");
+            return;
         }
     }
 
@@ -147,14 +190,28 @@ public class MapManager : MonoBehaviour
 
     }
 
-    public void WaterSoil()
+    public void WaterSoil(Vector3Int gridPosition)
     {
-        // access water bar UI on player
-        // lower count so that it is visually represented
-        // set tile to watered tile 
-        // this tile should have data that makes growth speed go at a 1.25x modifier
-        // crop needs to be able to access this modifier
-        // this should be reset when new day begins so player should have to water plant again
+        if (_cropSlotManager.CheckTileWatered(gridPosition) == true) // if the tile is already watered, do nothing
+        {
+            return;
+        }
+        else
+        {
+            _interactableTileMap.SetTile(gridPosition, _wateredSoilTile); // changes the sprite
+            _waterSpell.UseWater(); // changes the UI so its correct
+            _cropSlotManager.wateredTiles.Add(gridPosition, true); // states the tile is watered in the dictionary
+
+            StartCoroutine(ResetTile(gridPosition)); // sets tile back to normal after a period of time where it must be watered again
+        }
+
+    }
+
+    IEnumerator ResetTile(Vector3Int gridPosition)
+    {
+        yield return new WaitForSeconds(waterSoilInterval);
+        _interactableTileMap.SetTile(gridPosition, _tilledSoilTile);
+        _cropSlotManager.wateredTiles.Remove(gridPosition);
     }
 
     //checks to see that where the player has clicked at and that it is within a certain range from them, if it isnt then they cant interact with it.
@@ -171,7 +228,8 @@ public class MapManager : MonoBehaviour
         else
         {         
            
-            Debug.Log("Youre not close enough to interact with this tile");
+
+            //Debug.Log("Youre not close enough to interact with this tile");
             
             return false;
         }

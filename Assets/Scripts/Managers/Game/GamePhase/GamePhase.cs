@@ -13,7 +13,7 @@ public class GamePhase : MonoBehaviour
     [SerializeField] bool canEndDay;
     float timerInterval = 1;
     float currentTime; // the actual time
-    int currentTimeIndex; // used to keep track of game states
+    public int currentTimeIndex; // used to keep track of game states
     public bool haveEnemiesSpawned;
 
     // float lengthOfFullDay = 448; //keeping these two here for reference

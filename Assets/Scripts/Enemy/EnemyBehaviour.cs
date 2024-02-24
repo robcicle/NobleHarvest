@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using Random = UnityEngine.Random;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -33,6 +34,10 @@ public class EnemyBehaviour : MonoBehaviour
     Rigidbody2D _rb;
     Vector2 direction;
     public bool knockbackHappening;
+
+    //sprite changes
+    bool isFacingRight;
+    float horizontal;
 
     // CODING NOTES FOR FUTURE IMPROVEMENTS
     // when instantiating crops / crop game objects make sure to add the "Crop" tag to them
@@ -85,6 +90,9 @@ public class EnemyBehaviour : MonoBehaviour
         //if the positions of the gameobjects are not equal then call the function to move the enemy
         targetPosition = _targetGameObject.transform;
         NewTarget();
+
+        horizontal = _rb.velocity.x; // checks the horizontal speed of the enemy
+        FlipSprite();
     }
 
     //handles physics
@@ -336,5 +344,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         knockbackHappening = false;
+    }
+
+    public void FlipSprite()
+    {
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+
+            Vector3 localScale = transform.localScale;
+            isFacingRight = !isFacingRight;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }

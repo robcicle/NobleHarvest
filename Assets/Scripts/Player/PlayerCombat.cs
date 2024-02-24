@@ -18,7 +18,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] SlamAttackChargeMeter _attackChargeMeter;
-    Camera _playerCamera;
+    [SerializeField] Camera _playerCamera;
 
     [Header("Values to pass")]
     public float projectileSpeed = 20f;
@@ -29,7 +29,6 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         _attackChargeMeter.SetMaxCharge(slamRequirement);
-        _playerCamera = GetComponent<Camera>();
     }
     // Update is called once per frame
     void Update()

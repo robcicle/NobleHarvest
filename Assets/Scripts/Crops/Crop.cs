@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Crop : MonoBehaviour
 {
@@ -13,9 +15,34 @@ public class Crop : MonoBehaviour
     bool isGrowing = false;            // Flag to indicate if the crop is currently growing
     int growthState = 1;               // Current growth stage of the crop
 
+
+
+    [SerializeField]
+    private GamePhase _gamePhase; // to check if its day or night
+
+    public float growthModifier  = 1f; // used to switch between day, night and watered growth.
+                                       //1 for day, 0 for night and 1.25x 
+
+    public CropSlotManager _cropSlotManager; //used to check if the soil is watered or not 
+    Vector3Int currentPosition;
+    [SerializeField]
+    Tilemap _interactableTileMap;
+
+
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        GameObject gameManager = GameObject.Find("GameManager"); // used to get references to the managers
+        _gamePhase = gameManager.GetComponent<GamePhase>();
+        _cropSlotManager = gameManager.GetComponent<CropSlotManager>();
+        _interactableTileMap = GameObject.Find("InteratableTileMap(Dirt Layer)").GetComponent<Tilemap>();
+        currentPosition = _interactableTileMap.WorldToCell(gameObject.transform.position); //gets the grid location of the gameobject
+
         isGrowing = true;  // Start the growth process
         GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the initial sprite based on the growth state
     }
@@ -23,10 +50,29 @@ public class Crop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGrowing) // If the crop is not growing, return
+        switch (_gamePhase.currentTimeIndex) //checks the current time 
+        {
+            case 0:
+                growthModifier = 1f; // if its day time, grow normally
+                break;
+            case 40:
+                growthModifier = 0f; // if its night time, dont grow
+                break;
+        }
+
+        // seperate checks need to be done to see if the tile is watered, but it being night time should take priority
+        if (_cropSlotManager.CheckTileWatered(currentPosition) == true && _gamePhase.currentTimeIndex < 40) // if the tile where the crop is planted, is watered, then the growth modifier is increased
+        {
+            growthModifier = 1.25f;
+        }
+
+
+
+
+                if (!isGrowing) // If the crop is not growing, return
             return;
 
-        growthTimer += Time.deltaTime;  // Increment the growth timer based on real time
+        growthTimer += Time.deltaTime * growthModifier;  // Increment the growth timer based on real time
 
         if (growthTimer >= timeBetweenGrowth)  // If the growth timer reaches the time between growth stages
         {

@@ -7,6 +7,7 @@ TagManager:
   - Crop
   - Enemy
   - Soil
+  - Interactable Layer
   layers:
   - Default
   - TransparentFX

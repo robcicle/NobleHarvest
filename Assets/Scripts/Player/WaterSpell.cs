@@ -35,4 +35,10 @@ public class WaterSpell : MonoBehaviour
     {
         _slider.value = currentWaterLevel;
     }
+
+    public void UseWater() // used when watering crops, lowers the slider value and then updates it to show that
+    {
+        currentWaterLevel -= 1;
+        SetCurrentWaterLevel();
+    }
 }
