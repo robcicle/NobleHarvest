@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -95,6 +96,7 @@ public class Crop : MonoBehaviour
             isGrowing = false;  // Stop the growth process
             return;
         }
+
 
         growthState++; // Increment the growth stage
 

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         mapManager = GameObject.Find("GameManager").GetComponent<MapManager>();
-
+        
         // Initialize inventory
 
         // Setup the itemSlots for each category
@@ -75,6 +76,8 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+       
+
         // DEBUG FOR GIVING PLAYER A RANDOM ITEM
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -116,6 +119,7 @@ public class InventoryManager : MonoBehaviour
     // through when using), especially if an item is to be deducted on use as this would
     // just grab the first one that it finds instead. Atp, not needed but if so in the
     // future then it's an easy switch.
+
     public void UseItem(string itemName)
     {
         // Loop through the scriptable items array.
@@ -123,8 +127,10 @@ public class InventoryManager : MonoBehaviour
         {
             if (ItemManager.instance.itemSOs[i].itemName == itemName)
             {
-                ItemManager.instance.itemSOs[i].UseItem();  // Use the item
-                mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject;
+                //ItemManager.instance.itemSOs[i].UseItem();  // Use the item
+                mapManager.inventoryIndex = i; // data position of the object selected
+                Debug.Log("You have selected" + ItemManager.instance.itemSOs[i]); // debugs the one selected
+                mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
                 return;
             }
         }
@@ -257,5 +263,24 @@ public class InventoryManager : MonoBehaviour
         }
 
         return itemSlots;  // Return the item slots corresponding to the specified category
+    }
+
+    // called from mapmanager script to check if there are seeds available
+    public bool IsItemSlotEmpty(ItemSO item, int inventoryIndex)
+    {
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+
+        if (itemSlots[inventoryIndex].itemName == item.itemName && itemSlots[inventoryIndex].quantity > 0) // check if the count of items at the position indicated is above 0
+        {
+            //Debug.Log("there are items");
+            // mapManager.inventoryIndex = itemSelected; // data position of the object selected
+            return false; // if there are items, then do nothing
+        }
+        else
+        {
+            //Debug.Log("no items");
+            return true; // if there are no items, stop referencing the seed to plant
+        }
+        
     }
 }

@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RadialMenu : MonoBehaviour
 {
@@ -17,17 +20,17 @@ public class RadialMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        theMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         //Sets the menu as active when tab is held
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             theMenu.SetActive(true);
-
+            Time.timeScale = 0.6f;
         }
 
         if (theMenu.activeInHierarchy)
@@ -75,12 +78,20 @@ public class RadialMenu : MonoBehaviour
                 switch (selectedOption)
                 {
                     case 0:
+                        Debug.Log("you can now til soil");
+                        //till soil is selected
                         break;
                     case 1:
+                        Debug.Log("you can now plant crops");
+                        // plant crops is selected
                         break;
                     case 2:
+                        Debug.Log("you can now collect water");
+                        // collect water is selected
                         break;
                     case 3:
+                        Debug.Log("you can now use combat");
+                        // use combat system
                         break;
                     case 4:
                         break;
@@ -88,6 +99,7 @@ public class RadialMenu : MonoBehaviour
 
                 }
                 theMenu.SetActive(false);
+                Time.timeScale = 1f;
             }
 
 

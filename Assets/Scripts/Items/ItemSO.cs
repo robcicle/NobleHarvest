@@ -20,7 +20,7 @@ public class ItemSO : ScriptableObject
         switch (itemCategory)
         {
             case InventoryManager.ItemCategories.Seeds:  // If the item category is Seeds
-                CropManager.instance.PlaceSeed(); // Call the PlaceSeed function from CropManager
+                //CropManager.instance.PlaceSeed(); // Call the PlaceSeed function from CropManager
                 InventoryManager.instance.RemoveItem(this); // Remove the used seed from inventory
                 break;
             case InventoryManager.ItemCategories.Weapons:  // If the item category is Weapons

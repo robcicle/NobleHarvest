@@ -7,9 +7,13 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 using UnityEngine.WSA;
+using static UnityEditor.Progress;
 
 public class MapManager : MonoBehaviour
 {
+
+    public static MapManager instance = null;
+
     [Header("Player Interaction Stats")]
     [SerializeField]
     WaterSpell _waterSpell;
@@ -35,7 +39,7 @@ public class MapManager : MonoBehaviour
     public GameObject _cropSelected;
     [SerializeField]
     GameObject _cropListParent;
-    CropManager _cropManager;
+    public int inventoryIndex;
 
     [Header("References")]
     public CropSlotManager _cropSlotManager;
@@ -51,7 +55,7 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        _cropManager = GetComponent<CropManager>();
+        instance = this;
 
         dataFromTiles = new Dictionary<TileBase, TileData>(); // creates a dictionary of tile data
 
@@ -148,23 +152,31 @@ public class MapManager : MonoBehaviour
 
     public void PlantCrop(Vector3Int gridPosition)
     {
-        //_cropSelected = ItemManager.instance.itemSO[0]; // this selects the crop to be used, referenced from the inventory
+        // inventory index = to the position of the slot selected 
+        if (InventoryManager.instance.IsItemSlotEmpty(ItemManager.instance.itemSOs[inventoryIndex], inventoryIndex))// reference to the item being used and its position in the inventory
+        {
+            Debug.Log("No crop selected");
+
+        }
+        else
+        {
+            if (_cropSelected != null) // if there is a game object selected, plant it 
+            {
+                Debug.Log("Planted crop");
+                _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
+                Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+                _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
+                ItemManager.instance.itemSOs[inventoryIndex].UseItem(); // uses the item in the inventory when planted
+            }
+        }
+
+        
+
         // requires a second check to see if there are any remaining, if the number count is zero, do nothing.
         // if the number of items in  the inventory is greater than 0 then use that as reference to instantiate
         // if it is 0 then remove the reference to it so that is doesnt plant anything
 
-        if(_cropSelected != null) // if there is a game object selected, plant it 
-        {
-            Debug.Log("Planted crop");
-            _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
-            Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
-            _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
-        }
-        else
-        {
-            Debug.Log("No crop selected");
-            return;
-        }
+
     }
 
     public void CollectWater()

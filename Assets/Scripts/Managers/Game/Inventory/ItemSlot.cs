@@ -100,6 +100,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (isItemSelected)
         {
             InventoryManager.instance.UseItem(itemName); // Use the item if it's already selected
+                                                                                             
             return;
         }
 
@@ -107,6 +108,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         InventoryManager.instance.DeselectAllSlots();
         selectedPanel.SetActive(true);
         isItemSelected = true;
+        
 
         // Update item description data
         InventoryManager.instance.UpdateDescriptionData(itemName, itemDescription, itemIcon);
