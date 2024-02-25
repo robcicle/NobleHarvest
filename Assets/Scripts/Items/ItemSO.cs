@@ -33,4 +33,5 @@ public class ItemSO : ScriptableObject
 
         Debug.Log(itemName + " was used."); // Log that the item was used
     }
+
 }

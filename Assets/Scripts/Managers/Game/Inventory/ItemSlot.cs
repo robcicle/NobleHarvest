@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -67,6 +68,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         // Now update the itemSlot and other info to remove it.
         if (this.quantity <= 0)
         {
+
             this.quantity = 0;
 
             // Update slot data with item information
@@ -79,6 +81,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
             quantityText.text = this.quantity.ToString();
             quantityText.enabled = false;
+
+            
         }
         // Otherwise just update the quantity UI text.
         else

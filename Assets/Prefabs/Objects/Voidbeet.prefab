@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdeef61b63d89d48b2ec26a2d7318cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenGrowth: 15
+  timeBetweenGrowth: 20
   maxStages: 4
   _gamePhase: {fileID: 0}
   growthModifier: 1

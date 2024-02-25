@@ -42,6 +42,7 @@ public class InventoryManager : MonoBehaviour
     private ItemCategories selectedCategory = 0; // Default selected category
     [SerializeField]
     private GameObject[] categorySlots; // Array to hold category slots
+    
 
     // lets the map manager know which crop is selected
     MapManager mapManager;
@@ -122,14 +123,21 @@ public class InventoryManager : MonoBehaviour
 
     public void UseItem(string itemName)
     {
+        
+
         // Loop through the scriptable items array.
         for (int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
         {
             if (ItemManager.instance.itemSOs[i].itemName == itemName)
             {
-                //ItemManager.instance.itemSOs[i].UseItem();  // Use the item
-                mapManager.inventoryIndex = i; // data position of the object selected
-                Debug.Log("You have selected" + ItemManager.instance.itemSOs[i]); // debugs the one selected
+                //ItemManager.instance.itemSOs[i].UseItem();  // select the item
+                
+                ItemSO item = ItemManager.instance.itemSOs[i];
+                ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // using this for debugging how many things the player has of what they select
+
+                mapManager.itemSelected = i; // reference to what scriptable object is selected
+                Debug.Log("You have selected" + ItemManager.instance.itemSOs[i] + "You have " + (itemSlots[i].quantity)); // debugs the one selected
+                
                 mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
                 return;
             }
@@ -265,21 +273,31 @@ public class InventoryManager : MonoBehaviour
         return itemSlots;  // Return the item slots corresponding to the specified category
     }
 
-    // called from mapmanager script to check if there are seeds available
-    public bool IsItemSlotEmpty(ItemSO item, int inventoryIndex)
-    {
-        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
 
-        if (itemSlots[inventoryIndex].itemName == item.itemName && itemSlots[inventoryIndex].quantity > 0) // check if the count of items at the position indicated is above 0
+    // called from mapmanager script to check if there are seeds available
+    public bool IsItemSlotEmpty(ItemSO item, int itemSelected)
+    {
+
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+        // itemSlots[itemSelected].itemName == item.itemName && 
+
+        if (itemSlots[itemSelected] == null)
         {
-            //Debug.Log("there are items");
-            // mapManager.inventoryIndex = itemSelected; // data position of the object selected
-            return false; // if there are items, then do nothing
+            return true; // if there was no item selected in the first place then the slot is also empty
+        }
+        
+        if (itemSlots[itemSelected].quantity <= 0) // check if the count of items at the position indicated is above 0
+        {
+           // Debug.Log("there are no items");
+            return true; // if there are items, then do nothing
         }
         else
         {
-            //Debug.Log("no items");
-            return true; // if there are no items, stop referencing the seed to plant
+            //ItemManager.instance.itemSOs[itemSelected].UseItem(); // uses the item in the inventory when planted
+            itemSlots[itemSelected].RemoveItem(1);  // Remove one of the item from the item slot.
+            Debug.Log(itemSlots[itemSelected].quantity);
+            //Debug.Log("there are items");
+            return false; // if there are no items, stop referencing the seed to plant
         }
         
     }

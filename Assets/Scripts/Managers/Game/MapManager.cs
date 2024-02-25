@@ -39,7 +39,7 @@ public class MapManager : MonoBehaviour
     public GameObject _cropSelected;
     [SerializeField]
     GameObject _cropListParent;
-    public int inventoryIndex;
+    public int itemSelected;
 
     [Header("References")]
     public CropSlotManager _cropSlotManager;
@@ -152,22 +152,23 @@ public class MapManager : MonoBehaviour
 
     public void PlantCrop(Vector3Int gridPosition)
     {
-        // inventory index = to the position of the slot selected 
-        if (InventoryManager.instance.IsItemSlotEmpty(ItemManager.instance.itemSOs[inventoryIndex], inventoryIndex))// reference to the item being used and its position in the inventory
+        if (InventoryManager.instance.IsItemSlotEmpty(ItemManager.instance.itemSOs[itemSelected], itemSelected) == false)// reference to the item being used and its position in the inventory
         {
-            Debug.Log("No crop selected");
+  
+            if (_cropSelected != null) // if there is a game object selected, plant it 
+            {
+                //Debug.Log("Planted crop");
+
+                _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
+                Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+                _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
+                
+            }
 
         }
         else
         {
-            if (_cropSelected != null) // if there is a game object selected, plant it 
-            {
-                Debug.Log("Planted crop");
-                _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
-                Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
-                _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
-                ItemManager.instance.itemSOs[inventoryIndex].UseItem(); // uses the item in the inventory when planted
-            }
+            Debug.Log("No crop selected");
         }
 
         
@@ -193,7 +194,7 @@ public class MapManager : MonoBehaviour
 
     public void TillSoil(Vector3Int gridPosition)
     {
-        Debug.Log("Tilling the soil");
+        //Debug.Log("Tilling the soil");
         _interactableTileMap.SetTile(gridPosition, _tilledSoilTile);
         // change sprite to tilled soil
         // sprite should have scriptable object attacthed to it so it should have the data its supposed to have
