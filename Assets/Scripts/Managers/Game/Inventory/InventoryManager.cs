@@ -1,7 +1,12 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+using Random = UnityEngine.Random;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -41,6 +46,7 @@ public class InventoryManager : MonoBehaviour
     private ItemCategories selectedCategory = 0; // Default selected category
     [SerializeField]
     private GameObject[] categorySlots; // Array to hold category slots
+    
 
     // lets the map manager know which crop is selected
     MapManager mapManager;
@@ -60,7 +66,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         mapManager = GameObject.Find("GameManager").GetComponent<MapManager>();
-
+        
         // Initialize inventory
 
         // Setup the itemSlots for each category
@@ -71,16 +77,32 @@ public class InventoryManager : MonoBehaviour
         UpdateDescriptionData(null, null, null);  // Update item description with null values
         UpdateCategoryData(0); // Update the category data with the default selected category
         UpdateStates();      // Update the states of UI objects
+
+        for(int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
+        {
+
+            var item = ItemManager.instance.itemSOs[i];
+          
+            StartCoroutine(SortInventory(item,i));
+
+            
+        }
     }
 
     private void Update()
     {
+       
+
         // DEBUG FOR GIVING PLAYER A RANDOM ITEM
         if (Input.GetKeyDown(KeyCode.J))
-        {
-            int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+        {            
+            for (int i = 0; i < 10; i++)
+            {
+                int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+                AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+            }
 
-            AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+           
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
@@ -116,22 +138,33 @@ public class InventoryManager : MonoBehaviour
     // through when using), especially if an item is to be deducted on use as this would
     // just grab the first one that it finds instead. Atp, not needed but if so in the
     // future then it's an easy switch.
+
     public void UseItem(string itemName)
     {
+       
         // Loop through the scriptable items array.
         for (int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
         {
             if (ItemManager.instance.itemSOs[i].itemName == itemName)
             {
-                ItemManager.instance.itemSOs[i].UseItem();  // Use the item
-                mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject;
+                //ItemManager.instance.itemSOs[i].UseItem();  // select the item
+
+                var item = ItemManager.instance.itemSOs[i];
+                ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+
+                
+                mapManager.itemSelectedIndex = i; // reference to what scriptable object is selected
+                //Debug.Log("Index number " + i);
+                Debug.Log("You have selected " + ItemManager.instance.itemSOs[i] + " You have " + itemSlots[i].quantity); // logs the one selected
+                mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
+                mapManager.itemIsSelected = true; // stops an issue that occurs when the player tries planting something at the very beggining with nothing selected
                 return;
             }
         }
     }
 
     // Add an item to the inventory with a specified quantity.
-    public int AddItem(ItemSO item, int quantity)
+    public int AddItem(ItemSO item, int quantity )
     {
         ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
 
@@ -140,9 +173,10 @@ public class InventoryManager : MonoBehaviour
         {
             if (!itemSlots[i].isFull && itemSlots[i].itemName == item.itemName || itemSlots[i].quantity == 0)
             {
-                int leftOverItems = itemSlots[i].AddItem(item, quantity);  // Add the item to the item slot
+
+                int leftOverItems = itemSlots[i].AddItem(ItemManager.instance.itemSOs[i], quantity);  // Add the item to the item slot
                 if (leftOverItems > 0)
-                    leftOverItems = AddItem(item, leftOverItems);  // Add the remaining items recursively
+                    leftOverItems = AddItem(ItemManager.instance.itemSOs[i], leftOverItems);  // Add the remaining items recursively
 
                 return leftOverItems;
             }
@@ -156,6 +190,16 @@ public class InventoryManager : MonoBehaviour
     {
         return AddItem(item, item.defaultQuantity); // Add item with default quantity
     }
+
+    public void ItemBought(ItemSO item, int quantity, int index) // adds the item at a specific slot in the inventory
+    {
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+        int leftOverItems = itemSlots[index].AddItem(ItemManager.instance.itemSOs[index], quantity);  // Add the item to the item slot
+        if (leftOverItems > 0)
+            leftOverItems = AddItem(ItemManager.instance.itemSOs[index], leftOverItems);  // Add the remaining items recursively
+   
+    }
+
 
     // Remove an item from the inventory.
     public void RemoveItem(ItemSO item, int amountToRemove = 1)
@@ -258,4 +302,42 @@ public class InventoryManager : MonoBehaviour
 
         return itemSlots;  // Return the item slots corresponding to the specified category
     }
+
+
+    // called from mapmanager script to check if there are seeds available
+    public bool IsItemSlotEmpty(ItemSO item, int itemSelected, string itemName)
+    {
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+
+        if ((itemSlots[itemSelected] == null || itemSlots[itemSelected].quantity <= 0))
+        {
+            
+            //Debug.Log("there are no items");
+            return true; // if there was no item selected in the first place then the slot is also empty
+        }
+        else
+        {
+            //ItemManager.instance.itemSOs[itemSelected].UseItem(); // uses the item in the inventory when planted
+            itemSlots[itemSelected].RemoveItem(1);  // Remove one of the item from the item slot.
+            Debug.Log(itemSlots[itemSelected].quantity + " Seeds Remaining");
+            //Debug.Log("there are items");
+            return false; // if there are no items, stop referencing the seed to plant
+        }
+                                                         
+    }
+
+    IEnumerator SortInventory(ItemSO item, int i)
+    {
+        //ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+        
+        AddItem(item);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
+        yield return new WaitForEndOfFrame(); // gives time for the first function to run
+        //itemSlots[i].quantity -= 1; // this adds all the items in inventory with 0 values, just keeps their sprites and descriptions there
+        //itemSlots[i].quantityText.text = 0.ToString();
+
+        RemoveItem(item);
+    }
+
+
+
 }

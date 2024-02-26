@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -14,7 +15,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     // Slot Data
     [SerializeField]
-    private TMP_Text quantityText;  // Text displaying the quantity of the item in the slot
+    public TMP_Text quantityText;  // Text displaying the quantity of the item in the slot
     [SerializeField]
     private Image itemImage;        // Image representing the item
 
@@ -67,18 +68,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         // Now update the itemSlot and other info to remove it.
         if (this.quantity <= 0)
         {
+
             this.quantity = 0;
 
             // Update slot data with item information
-            this.itemName = "";
-            this.itemDescription = "";
-            this.itemIcon = null;
+            //this.itemName = "";
+            //this.itemDescription = "";
+            //this.itemIcon = null;
 
-            itemImage.sprite = null;
-            itemImage.enabled = false;
+            //itemImage.sprite = null;
+            //itemImage.enabled = false;
 
             quantityText.text = this.quantity.ToString();
-            quantityText.enabled = false;
+            //quantityText.enabled = false;
+
+            
         }
         // Otherwise just update the quantity UI text.
         else
@@ -100,6 +104,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (isItemSelected)
         {
             InventoryManager.instance.UseItem(itemName); // Use the item if it's already selected
+                                                                                             
             return;
         }
 
@@ -107,6 +112,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         InventoryManager.instance.DeselectAllSlots();
         selectedPanel.SetActive(true);
         isItemSelected = true;
+        
 
         // Update item description data
         InventoryManager.instance.UpdateDescriptionData(itemName, itemDescription, itemIcon);

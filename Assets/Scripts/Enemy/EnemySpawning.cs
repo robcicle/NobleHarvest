@@ -48,7 +48,7 @@ public class EnemySpawning : MonoBehaviour
 
 
             int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             Instantiate(enemyPrefabs[0], spawnPoints[randomSpawnPoint].position, transform.rotation, this.transform);
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -96,6 +97,7 @@ public class Crop : MonoBehaviour
             return;
         }
 
+
         growthState++; // Increment the growth stage
 
 
@@ -104,4 +106,6 @@ public class Crop : MonoBehaviour
         _spriteRenderer.sprite = cropSprites[growthState - 1]; // goes through the list of sprites for the crop game object
         //GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the sprite for the new growth stage
     }
+
+
 }

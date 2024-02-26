@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7995567147278277687}
   - component: {fileID: 2470697388125844298}
   m_Layer: 0
-  m_Name: Glacial Mint
+  m_Name: Iceberg Lettuce
   m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdeef61b63d89d48b2ec26a2d7318cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenGrowth: 15
+  timeBetweenGrowth: 20
   maxStages: 4
   _gamePhase: {fileID: 0}
   growthModifier: 1
