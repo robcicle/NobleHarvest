@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5503486844932156520
 Transform:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.07, y: 3.77}
+  m_AnchoredPosition: {x: 0.07, y: 3.24}
   m_SizeDelta: {x: 225.9243, y: 258.106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &829202680452015914
@@ -144,7 +144,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &7690332324258471918
 MonoBehaviour:
@@ -399,7 +399,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 3}
   m_EdgeRadius: 0
 --- !u!50 &3495310055786344123
 Rigidbody2D:
@@ -442,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canEndDay: 0
   _gamePhase: {fileID: 0}
-  _economyScreen: {fileID: 0}
+  _economyScreenUI: {fileID: 0}
   _stateController: {fileID: 0}
   _canInteractText: {fileID: 4240658231238018263}
+  _economyScreen: {fileID: 0}

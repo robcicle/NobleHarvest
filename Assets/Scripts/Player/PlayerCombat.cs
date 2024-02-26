@@ -5,7 +5,7 @@ public class PlayerCombat : MonoBehaviour
 {
     [Header("Attack Variables")]
     public bool canAttack = true;
-    public bool attackSelected = false;
+    public bool attackSelected = true;
     public int slamRequirement = 8;
     float attackCooldownTimer;
     int slamChargeIndex = 0;
@@ -42,7 +42,8 @@ public class PlayerCombat : MonoBehaviour
 
         //checks if left click is being held down
         // this does the fireball attack
-        if (Input.GetMouseButton(0) && canAttack == true && attackSelected == true)
+        //  && attackSelected == true
+        if (Input.GetMouseButton(0) && canAttack == true)
         {
             //gets the current position of the player and the current mouse cursor position
             //creates a direction and a force in that direction
@@ -68,7 +69,8 @@ public class PlayerCombat : MonoBehaviour
 
         //checks if right click was used
         // this does the slam attack
-        if (Input.GetMouseButtonDown(1) && canAttack == true && slamChargeIndex >= slamRequirement && attackSelected == true)
+        //  && attackSelected == true
+        if (Input.GetMouseButtonDown(1) && canAttack == true && slamChargeIndex >= slamRequirement)
         {
 
             float damage = 50;

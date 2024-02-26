@@ -11,7 +11,7 @@ public class GamePhase : MonoBehaviour
     [Header("Variables")]
     [SerializeField] int startEnemySpawning;
     [SerializeField] bool canEndDay;
-    float timerInterval = 4; // default is 7
+    float timerInterval = 2; // default is 7
     float currentTime; // the actual time
     public int currentTimeIndex; // used to keep track of game states
     public bool haveEnemiesSpawned;
@@ -29,6 +29,7 @@ public class GamePhase : MonoBehaviour
     public EnemySpawning _enemySpawning;
     public GameTimerUI _gameTimerUI;
     public Light2D _light2D;
+    public Light2D _globalLight;
     public EndOfDay _endOfDay;
     public Light2D _playerLight;
 
@@ -63,15 +64,20 @@ public class GamePhase : MonoBehaviour
             case 0:
                 _playerLight.intensity = 0f; // turn off the light on the player
                 _light2D.color = Color.white; // changes the world lighting 
+                _globalLight.intensity = 0.6f;
                 _light2D.pointLightInnerRadius = 9; 
                 canEndDay = false;
                 //Debug.Log("Start Of Day");
                 //set crop growth to 1x modifier
                 break;
 
+            case 30:
+                _globalLight.intensity = 0.30f;
+                break;
             case 40:
                 //Debug.Log("Start Of Night");
                 // set crop growth to 0x modifier
+                _globalLight.intensity = 0.08f;
                 NightTimeBegun(); //spawn enemies
                 break;
             case 64:

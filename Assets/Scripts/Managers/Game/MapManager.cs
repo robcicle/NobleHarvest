@@ -17,7 +17,7 @@ public class MapManager : MonoBehaviour
     [Header("Player Interaction Stats")]
     [SerializeField]
     WaterSpell _waterSpell;
-    public bool cultivatingSelected; // used when radial wheel / interacting is selected
+    public bool cultivatingSelected = true; // used when radial wheel / interacting is selected
     public int waterSoilInterval = 60; // how often the player must water the crops in seconds
 
     //player reference
@@ -109,7 +109,7 @@ public class MapManager : MonoBehaviour
                 // {
                 // dont actually know why i made this, might do something with it 
                 //}
-
+                // && cultivatingSelected == true
                 if (isUntilledSoil == true)
                 {
                      TillSoil(gridPosition);

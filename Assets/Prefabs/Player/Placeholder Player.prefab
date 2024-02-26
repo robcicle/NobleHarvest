@@ -10223,7 +10223,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10234,7 +10234,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 0.8, y: 1.1}
   m_EdgeRadius: 0
 --- !u!114 &6871782161934757119
 MonoBehaviour:
@@ -10261,6 +10261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f1fba8f8ed5d84da2c020f2696aaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
+  attackSelected: 1
   slamRequirement: 8
   _fireball: {fileID: 595120116640121088, guid: 424dd92245c86f7498030f44d116f5cd, type: 3}
   _particleSystem: {fileID: 1705422133933255435}
