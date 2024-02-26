@@ -40,6 +40,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     GameObject _cropListParent;
     public int itemSelectedIndex;
+    public bool itemIsSelected = false;
 
     [Header("References")]
     public CropSlotManager _cropSlotManager;
@@ -66,6 +67,8 @@ public class MapManager : MonoBehaviour
                 dataFromTiles.Add(tile, tileData); //the tile is the key and the tile data is the value
             }
         }
+
+        Debug.Log(itemSelectedIndex);
     }
 
     private void Update()
@@ -152,26 +155,29 @@ public class MapManager : MonoBehaviour
 
     public void PlantCrop(Vector3Int gridPosition)
     {
-        Debug.Log("Map Index Number " + itemSelectedIndex);
-        ItemSO item = ItemManager.instance.itemSOs[itemSelectedIndex]; // item
-        
-        if ((InventoryManager.instance.IsItemSlotEmpty(item, itemSelectedIndex, item.ToString())) == false)// reference to the item being used and its position in the inventory
+        if(itemIsSelected == true)
         {
-  
-            if (_cropSelected != null) // if there is a game object selected, plant it 
+            //Debug.Log("Map Index Number " + itemSelectedIndex);
+            ItemSO item = ItemManager.instance.itemSOs[itemSelectedIndex]; // item
+
+            if ((InventoryManager.instance.IsItemSlotEmpty(item, itemSelectedIndex, item.ToString())) == false)// reference to the item being used and its position in the inventory
             {
-                //Debug.Log("Planted crop");
 
-                _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
-                Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
-                _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
-                
+                if (_cropSelected != null) // if there is a game object selected, plant it 
+                {
+                    //Debug.Log("Planted crop");
+
+                    _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
+                    Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+                    _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
+
+                }
+
             }
-
         }
         else
         {
-            //Debug.Log("No crop selected");
+            Debug.Log("No crop selected");
         }
 
         

@@ -76,7 +76,7 @@ public class InventoryManager : MonoBehaviour
 
         for(int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
         {
-            AddItem(ItemManager.instance.itemSOs[i]);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
+          //  AddItem(ItemManager.instance.itemSOs[i]);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
         }
     }
 
@@ -148,6 +148,7 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Index number " + i);
                 Debug.Log("You have selected " + ItemManager.instance.itemSOs[i] + " You have " + itemSlots[i].quantity); // logs the one selected
                 mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
+                mapManager.itemIsSelected = true; // stops an issue that occurs when the player tries planting something at the very beggining with nothing selected
                 return;
             }
         }
@@ -163,9 +164,9 @@ public class InventoryManager : MonoBehaviour
         {
             if (!itemSlots[i].isFull && itemSlots[i].itemName == item.itemName || itemSlots[i].quantity == 0)
             {
-                int leftOverItems = itemSlots[i].AddItem(item, quantity);  // Add the item to the item slot
+                int leftOverItems = itemSlots[i].AddItem(ItemManager.instance.itemSOs[i], quantity);  // Add the item to the item slot
                 if (leftOverItems > 0)
-                    leftOverItems = AddItem(item, leftOverItems);  // Add the remaining items recursively
+                    leftOverItems = AddItem(ItemManager.instance.itemSOs[i], leftOverItems);  // Add the remaining items recursively
 
                 return leftOverItems;
             }

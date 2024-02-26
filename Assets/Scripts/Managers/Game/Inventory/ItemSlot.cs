@@ -72,15 +72,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             this.quantity = 0;
 
             // Update slot data with item information
-            this.itemName = "";
-            this.itemDescription = "";
-            this.itemIcon = null;
+            //this.itemName = "";
+            //this.itemDescription = "";
+            //this.itemIcon = null;
 
-            itemImage.sprite = null;
-            itemImage.enabled = false;
+            //itemImage.sprite = null;
+            //itemImage.enabled = false;
 
             quantityText.text = this.quantity.ToString();
-            quantityText.enabled = false;
+            //quantityText.enabled = false;
 
             
         }
