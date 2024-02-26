@@ -68,7 +68,7 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        Debug.Log(itemSelectedIndex);
+       // Debug.Log(itemSelectedIndex);
     }
 
     private void Update()

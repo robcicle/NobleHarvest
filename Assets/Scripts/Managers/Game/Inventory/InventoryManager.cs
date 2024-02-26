@@ -1,8 +1,12 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
+using Random = UnityEngine.Random;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -76,7 +80,12 @@ public class InventoryManager : MonoBehaviour
 
         for(int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
         {
-          //  AddItem(ItemManager.instance.itemSOs[i]);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
+
+            var item = ItemManager.instance.itemSOs[i];
+          
+            StartCoroutine(SortInventory(item,i));
+
+            
         }
     }
 
@@ -145,7 +154,7 @@ public class InventoryManager : MonoBehaviour
 
                 
                 mapManager.itemSelectedIndex = i; // reference to what scriptable object is selected
-                Debug.Log("Index number " + i);
+                //Debug.Log("Index number " + i);
                 Debug.Log("You have selected " + ItemManager.instance.itemSOs[i] + " You have " + itemSlots[i].quantity); // logs the one selected
                 mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
                 mapManager.itemIsSelected = true; // stops an issue that occurs when the player tries planting something at the very beggining with nothing selected
@@ -155,7 +164,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Add an item to the inventory with a specified quantity.
-    public int AddItem(ItemSO item, int quantity)
+    public int AddItem(ItemSO item, int quantity )
     {
         ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
 
@@ -164,6 +173,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (!itemSlots[i].isFull && itemSlots[i].itemName == item.itemName || itemSlots[i].quantity == 0)
             {
+
                 int leftOverItems = itemSlots[i].AddItem(ItemManager.instance.itemSOs[i], quantity);  // Add the item to the item slot
                 if (leftOverItems > 0)
                     leftOverItems = AddItem(ItemManager.instance.itemSOs[i], leftOverItems);  // Add the remaining items recursively
@@ -180,6 +190,16 @@ public class InventoryManager : MonoBehaviour
     {
         return AddItem(item, item.defaultQuantity); // Add item with default quantity
     }
+
+    public void ItemBought(ItemSO item, int quantity, int index) // adds the item at a specific slot in the inventory
+    {
+        ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+        int leftOverItems = itemSlots[index].AddItem(ItemManager.instance.itemSOs[index], quantity);  // Add the item to the item slot
+        if (leftOverItems > 0)
+            leftOverItems = AddItem(ItemManager.instance.itemSOs[index], leftOverItems);  // Add the remaining items recursively
+   
+    }
+
 
     // Remove an item from the inventory.
     public void RemoveItem(ItemSO item, int amountToRemove = 1)
@@ -306,6 +326,18 @@ public class InventoryManager : MonoBehaviour
                                                          
     }
 
+    IEnumerator SortInventory(ItemSO item, int i)
+    {
+        //ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
         
-    
+        AddItem(item);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
+        yield return new WaitForEndOfFrame(); // gives time for the first function to run
+        //itemSlots[i].quantity -= 1; // this adds all the items in inventory with 0 values, just keeps their sprites and descriptions there
+        //itemSlots[i].quantityText.text = 0.ToString();
+
+        RemoveItem(item);
+    }
+
+
+
 }

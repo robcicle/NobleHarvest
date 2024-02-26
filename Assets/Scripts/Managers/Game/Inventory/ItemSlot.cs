@@ -15,7 +15,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     // Slot Data
     [SerializeField]
-    private TMP_Text quantityText;  // Text displaying the quantity of the item in the slot
+    public TMP_Text quantityText;  // Text displaying the quantity of the item in the slot
     [SerializeField]
     private Image itemImage;        // Image representing the item
 
