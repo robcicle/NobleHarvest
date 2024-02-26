@@ -6,6 +6,14 @@ public class RadialMenu : MonoBehaviour
     //Should be the background
     public GameObject theMenu;
 
+    public GameObject playerAttack;
+    private PlayerCombat playerCombatRef;
+
+    public GameObject playerCultivate;
+    private MapManager playerCultivateRef;
+
+    public TextMeshProUGUI actionHUDObj;
+
     public Vector2 moveInput;
     //Allows you to drag in the text boxes, may require you to do in specific order IE clockwise
     public TextMeshProUGUI[] options;
@@ -18,6 +26,7 @@ public class RadialMenu : MonoBehaviour
     void Start()
     {
 
+
     }
 
     // Update is called once per frame
@@ -26,8 +35,14 @@ public class RadialMenu : MonoBehaviour
         //Sets the menu as active when tab is held
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            theMenu.SetActive(true);
-
+            if (theMenu.activeSelf)
+            {
+                theMenu.SetActive(false);
+            }
+            else
+            {
+                theMenu.SetActive(true);
+            }
         }
 
         if (theMenu.activeInHierarchy)
@@ -60,6 +75,7 @@ public class RadialMenu : MonoBehaviour
                         options[i].color = highlightedColor;
                         //Set selected option to whatever option is currently hovered
                         selectedOption = i;
+
                     }
                     else
                     {
@@ -72,6 +88,7 @@ public class RadialMenu : MonoBehaviour
             //Use this to call functions, Simply add/remove cases or change this to work to call functions however you like
             if (Input.GetMouseButtonDown(0))
             {
+                ResetBooleanVariables();
                 switch (selectedOption)
                 {
                     case 0:
@@ -79,11 +96,16 @@ public class RadialMenu : MonoBehaviour
                     case 1:
                         break;
                     case 2:
+                        playerCombatRef = playerAttack.GetComponent<PlayerCombat>();
+                        playerCombatRef.attackSelected = !playerCombatRef.attackSelected;
+                        actionHUDObj.text = options[2].text;
                         break;
                     case 3:
+                        playerCultivateRef = playerCultivate.GetComponent<MapManager>();
+                        playerCultivateRef.cultivatingSelected = !playerCultivateRef.cultivatingSelected;
+                        actionHUDObj.text = options[3].text;
                         break;
-                    case 4:
-                        break;
+
 
 
                 }
@@ -94,4 +116,18 @@ public class RadialMenu : MonoBehaviour
         }
 
     }
+
+    void ResetBooleanVariables()
+    {
+        if (playerCombatRef != null)
+        {
+            playerCombatRef.attackSelected = false;
+        }
+
+        if (playerCultivateRef != null)
+        {
+            playerCultivateRef.cultivatingSelected = false;
+        }
+    }
+
 }

@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Attack Variables")]
-    bool canAttack = true;
+    public bool canAttack = true;
+    public bool attackSelected = false;
     public int slamRequirement = 8;
     float attackCooldownTimer;
     int slamChargeIndex = 0;
@@ -22,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Values to pass")]
     public float projectileSpeed = 20f;
-   // Rigidbody2D _rb;
+    // Rigidbody2D _rb;
     Vector2 currentPosition;
     Vector2 mousePosition;
 
@@ -44,7 +42,7 @@ public class PlayerCombat : MonoBehaviour
 
         //checks if left click is being held down
         // this does the fireball attack
-        if (Input.GetMouseButton(0) && canAttack == true)
+        if (Input.GetMouseButton(0) && canAttack == true && attackSelected == true)
         {
             //gets the current position of the player and the current mouse cursor position
             //creates a direction and a force in that direction
@@ -70,7 +68,7 @@ public class PlayerCombat : MonoBehaviour
 
         //checks if right click was used
         // this does the slam attack
-        if(Input.GetMouseButtonDown(1) && canAttack == true && slamChargeIndex >= slamRequirement)
+        if (Input.GetMouseButtonDown(1) && canAttack == true && slamChargeIndex >= slamRequirement && attackSelected == true)
         {
 
             float damage = 50;
@@ -81,7 +79,7 @@ public class PlayerCombat : MonoBehaviour
             enemiesInSlamRadius = Physics2D.OverlapCircleAll(transform.position, 4f, _enemyLayer);
 
             //for every enemy inside the radius of the circle get their script, make them take damage and apply force in the opposite direction
-            foreach(Collider2D enemy in enemiesInSlamRadius)
+            foreach (Collider2D enemy in enemiesInSlamRadius)
             {
                 //Debug.Log(enemiesInSlamRadius.Length);
                 enemy.GetComponent<EnemyBehaviour>().knockbackHappening = true;
@@ -117,7 +115,7 @@ public class PlayerCombat : MonoBehaviour
         {
             _particleSystem.Play();
             particleSystemShape.radius += 0.4f;
-           // Debug.Log(particleSystemShape.radius);
+            // Debug.Log(particleSystemShape.radius);
             yield return new WaitForSeconds(0.025f);
         }
 
@@ -137,7 +135,7 @@ public class PlayerCombat : MonoBehaviour
     //shows the range of the slam in the editor when gizmos are enabled
     private void OnDrawGizmosSelected()
     {
-        if(transform == null)
+        if (transform == null)
         {
             return;
         }
