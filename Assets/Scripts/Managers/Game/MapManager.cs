@@ -39,7 +39,7 @@ public class MapManager : MonoBehaviour
     public GameObject _cropSelected;
     [SerializeField]
     GameObject _cropListParent;
-    public int itemSelected;
+    public int itemSelectedIndex;
 
     [Header("References")]
     public CropSlotManager _cropSlotManager;
@@ -152,7 +152,10 @@ public class MapManager : MonoBehaviour
 
     public void PlantCrop(Vector3Int gridPosition)
     {
-        if (InventoryManager.instance.IsItemSlotEmpty(ItemManager.instance.itemSOs[itemSelected], itemSelected) == false)// reference to the item being used and its position in the inventory
+        Debug.Log("Map Index Number " + itemSelectedIndex);
+        ItemSO item = ItemManager.instance.itemSOs[itemSelectedIndex]; // item
+        
+        if ((InventoryManager.instance.IsItemSlotEmpty(item, itemSelectedIndex, item.ToString())) == false)// reference to the item being used and its position in the inventory
         {
   
             if (_cropSelected != null) // if there is a game object selected, plant it 
@@ -168,7 +171,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No crop selected");
+            //Debug.Log("No crop selected");
         }
 
         

@@ -73,6 +73,11 @@ public class InventoryManager : MonoBehaviour
         UpdateDescriptionData(null, null, null);  // Update item description with null values
         UpdateCategoryData(0); // Update the category data with the default selected category
         UpdateStates();      // Update the states of UI objects
+
+        for(int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
+        {
+            AddItem(ItemManager.instance.itemSOs[i]);  // adds the items in order of how they appear onto the inventory, this avoids issues with them being in different slots
+        }
     }
 
     private void Update()
@@ -81,10 +86,14 @@ public class InventoryManager : MonoBehaviour
 
         // DEBUG FOR GIVING PLAYER A RANDOM ITEM
         if (Input.GetKeyDown(KeyCode.J))
-        {
-            int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+        {            
+            for (int i = 0; i < 10; i++)
+            {
+                int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+                AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+            }
 
-            AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+           
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
@@ -123,21 +132,21 @@ public class InventoryManager : MonoBehaviour
 
     public void UseItem(string itemName)
     {
-        
-
+       
         // Loop through the scriptable items array.
         for (int i = 0; i < ItemManager.instance.itemSOs.Length; i++)
         {
             if (ItemManager.instance.itemSOs[i].itemName == itemName)
             {
                 //ItemManager.instance.itemSOs[i].UseItem();  // select the item
-                
-                ItemSO item = ItemManager.instance.itemSOs[i];
-                ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // using this for debugging how many things the player has of what they select
 
-                mapManager.itemSelected = i; // reference to what scriptable object is selected
-                Debug.Log("You have selected" + ItemManager.instance.itemSOs[i] + "You have " + (itemSlots[i].quantity)); // debugs the one selected
+                var item = ItemManager.instance.itemSOs[i];
+                ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
+
                 
+                mapManager.itemSelectedIndex = i; // reference to what scriptable object is selected
+                Debug.Log("Index number " + i);
+                Debug.Log("You have selected " + ItemManager.instance.itemSOs[i] + " You have " + itemSlots[i].quantity); // logs the one selected
                 mapManager._cropSelected = ItemManager.instance.itemSOs[i]._gameObject; // sets the crop to be planted as the one in inventory
                 return;
             }
@@ -275,30 +284,27 @@ public class InventoryManager : MonoBehaviour
 
 
     // called from mapmanager script to check if there are seeds available
-    public bool IsItemSlotEmpty(ItemSO item, int itemSelected)
+    public bool IsItemSlotEmpty(ItemSO item, int itemSelected, string itemName)
     {
-
         ItemSlot[] itemSlots = GetSlotsFromCategory(item.itemCategory); // Get slots from the corresponding category
-        // itemSlots[itemSelected].itemName == item.itemName && 
 
-        if (itemSlots[itemSelected] == null)
+        if ((itemSlots[itemSelected] == null || itemSlots[itemSelected].quantity <= 0))
         {
+            
+            //Debug.Log("there are no items");
             return true; // if there was no item selected in the first place then the slot is also empty
-        }
-        
-        if (itemSlots[itemSelected].quantity <= 0) // check if the count of items at the position indicated is above 0
-        {
-           // Debug.Log("there are no items");
-            return true; // if there are items, then do nothing
         }
         else
         {
             //ItemManager.instance.itemSOs[itemSelected].UseItem(); // uses the item in the inventory when planted
             itemSlots[itemSelected].RemoveItem(1);  // Remove one of the item from the item slot.
-            Debug.Log(itemSlots[itemSelected].quantity);
+            Debug.Log(itemSlots[itemSelected].quantity + " Seeds Remaining");
             //Debug.Log("there are items");
             return false; // if there are no items, stop referencing the seed to plant
         }
-        
+                                                         
     }
+
+        
+    
 }

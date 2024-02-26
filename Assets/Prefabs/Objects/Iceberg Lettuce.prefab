@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7995567147278277687}
   - component: {fileID: 2470697388125844298}
   m_Layer: 0
-  m_Name: Glacial Mint
+  m_Name: Iceberg Lettuce
   m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
