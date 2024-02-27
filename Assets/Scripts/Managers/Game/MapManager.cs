@@ -17,7 +17,7 @@ public class MapManager : MonoBehaviour
     [Header("Player Interaction Stats")]
     [SerializeField]
     WaterSpell _waterSpell;
-    public bool cultivatingSelected = true; // used when radial wheel / interacting is selected
+    public bool cultivatingSelected; // used when radial wheel / interacting is selected
     public int waterSoilInterval = 60; // how often the player must water the crops in seconds
 
     //player reference
@@ -28,6 +28,8 @@ public class MapManager : MonoBehaviour
     [Header("Tiles")]
     [SerializeField]
     private Tilemap _interactableTileMap; // reference to the tilemap
+    [SerializeField]
+    private TileBase _untilledSoil;
     [SerializeField]
     private TileBase _tilledSoilTile; // reference of the tilled soil tile
     [SerializeField]
@@ -46,10 +48,11 @@ public class MapManager : MonoBehaviour
     public CropSlotManager _cropSlotManager;
     public EconomyScreen _economyScreen;
 
+    public bool isDayTime;
+    public bool harvestSelected;
+    public bool plantingSelected;
 
 
-
-   
 
 
     private Dictionary<TileBase, TileData> dataFromTiles; // dictionary of the different tiles that have been made from the SO
@@ -75,13 +78,14 @@ public class MapManager : MonoBehaviour
     {
         _playerTransform = _player.transform;
 
-        if (Input.GetMouseButtonDown(0)) // on left click, only gets it once not when held
+
+        if (Input.GetMouseButtonDown(0) && WithinRange()) // on left click, only gets it once not when held
         {
-           
+
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //gets mouse position
             Vector3Int gridPosition = _interactableTileMap.WorldToCell(mousePosition); //get the grid cell position based on where the mouse input is
 
-            TileBase clickedTile  = _interactableTileMap.GetTile(gridPosition); //gets which tile was clicked on at the position of the mouse cursor
+            TileBase clickedTile = _interactableTileMap.GetTile(gridPosition); //gets which tile was clicked on at the position of the mouse cursor
             //Debug.Log("You have clicked on  " + clickedTile);
 
 
@@ -94,38 +98,36 @@ public class MapManager : MonoBehaviour
             bool isTilledSoil = dataFromTiles[clickedTile].isTilledSoil;
             //bool isOccupied = dataFromTiles[clickedTile].tileIsOccupied;
 
-
-
-
-            if (WithinRange())
+            if (isWaterTile == true)
             {
+                CollectWater();
+            }
 
-                if (isWaterTile == true)
-                {
-                    CollectWater();
 
-                }
-                //if (isGrass == true)
-                // {
-                // dont actually know why i made this, might do something with it 
-                //}
-                // && cultivatingSelected == true
-                if (isUntilledSoil == true)
-                {
-                     TillSoil(gridPosition);
-                     // if till soil option is selected
-                     // cultivate soil and change it to tilled soil
-                }
+            //if (isGrass == true)
+            // {
+            // dont actually know why i made this, might do something with it 
+            //}
+            // 
+            if (isUntilledSoil == true && cultivatingSelected == true)
+            {
+                TillSoil(gridPosition);
+                // if till soil option is selected
+                // cultivate soil and change it to tilled soil
+            }
 
-                if (isTilledSoil == true && _cropSlotManager.CheckTileEmpty(gridPosition) == true ) // if the slot is empty, try plant a seed
+            if (plantingSelected == true && isDayTime == true)
+            {
+                if (isTilledSoil == true && _cropSlotManager.CheckTileEmpty(gridPosition) == true) // if the slot is empty, try plant a seed
                 {
-                    if(_cropSlotManager.CheckTileWatered(gridPosition) == true) // can also be planted if the soil is watered
+
+                    if (_cropSlotManager.CheckTileWatered(gridPosition) == true) // can also be planted if the soil is watered
                     {
-                         PlantCrop(gridPosition);
+                        PlantCrop(gridPosition);
                     }
                     else
                     {
-                         PlantCrop(gridPosition);
+                        PlantCrop(gridPosition);
                     }
                     //Debug.Log("Planting seed");
 
@@ -134,23 +136,27 @@ public class MapManager : MonoBehaviour
 
                     // if plant seeds action is selected
                     // can plant seeds here
-
-
                 }
                 else if (_cropSlotManager.CheckTileEmpty(gridPosition) == false && _waterSpell.currentWaterLevel > 0) // if the grid slot is occupied water the soil instead if there is water available
                 {
 
-                        Debug.Log("Watering");
-                        WaterSoil(gridPosition);
-                    
-                    
+                    //Debug.Log("Watering");
+                    WaterSoil(gridPosition);
+
+
                     //    Debug.Log("Tile is watered already");
-                    
+
 
 
                 }
+
             }
+        
+
+
+             
         }
+    
     }
 
     public void PlantCrop(Vector3Int gridPosition)
@@ -167,8 +173,8 @@ public class MapManager : MonoBehaviour
                 {
                     //Debug.Log("Planted crop");
 
-                    _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
                     Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
+                    _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
                     _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
 
                 }
@@ -259,7 +265,10 @@ public class MapManager : MonoBehaviour
 
     public void CropRemoved(Vector2 cropPosition) // call this when a crop is destroyed or harvested
     {
+        Debug.Log("trying to remove crop");
         Vector3Int gridPosition = _interactableTileMap.WorldToCell(cropPosition);
         _cropSlotManager.cropSlots.Remove(gridPosition);
+        _cropSlotManager.wateredTiles.Remove(gridPosition);
+        _interactableTileMap.SetTile(gridPosition, _untilledSoil);
     }
 }

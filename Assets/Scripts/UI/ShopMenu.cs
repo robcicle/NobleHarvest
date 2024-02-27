@@ -10,9 +10,7 @@ using UnityEngine.UI;
 public class ShopMenu : MonoBehaviour
 {
     [Header("Variables")]
-    public int goldToEarn; // gold that is yet to be earned from the player once the day ends 
-    public int currentGold = 50
-        ; // gold the player currently has 
+    public int currentGold = 20; // gold the player currently has 
     int beetRootCost = 10;
     int mushroomCost = 25; // integer cost of the items 
     int lettuceCost = 50;

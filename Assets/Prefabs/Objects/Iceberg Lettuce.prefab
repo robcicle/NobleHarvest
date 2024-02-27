@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdeef61b63d89d48b2ec26a2d7318cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenGrowth: 20
+  timeBetweenGrowth: 40
   maxStages: 4
   _gamePhase: {fileID: 0}
   growthModifier: 1
@@ -110,6 +110,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8b57eb8926394c4e8bda8a959b35b52, type: 3}
   - {fileID: 21300000, guid: f567f3125ac98134aa2afb7e88df68bc, type: 3}
   - {fileID: 21300000, guid: ab266688076c7cd4d87a33cfce4011a2, type: 3}
+  _MapManager: {fileID: 0}
+  goldYield: 100
+  harvestSelected: 0
 --- !u!114 &6730366487805867281
 MonoBehaviour:
   m_ObjectHideFlags: 0

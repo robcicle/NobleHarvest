@@ -32,11 +32,13 @@ public class GamePhase : MonoBehaviour
     public Light2D _globalLight;
     public EndOfDay _endOfDay;
     public Light2D _playerLight;
+    MapManager _mapManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        _mapManager = GameObject.Find("GameManager").GetComponent<MapManager>();
         StartDay();
    
     }
@@ -62,6 +64,7 @@ public class GamePhase : MonoBehaviour
         {
             // these case number are just the number of intervals lapped so in-game time would be this number * 7
             case 0:
+                _mapManager.isDayTime = true;
                 _playerLight.intensity = 0f; // turn off the light on the player
                 _light2D.color = Color.white; // changes the world lighting 
                 _globalLight.intensity = 0.6f;
@@ -75,6 +78,7 @@ public class GamePhase : MonoBehaviour
                 _globalLight.intensity = 0.30f;
                 break;
             case 40:
+                _mapManager.isDayTime = false;
                 //Debug.Log("Start Of Night");
                 // set crop growth to 0x modifier
                 _globalLight.intensity = 0.08f;

@@ -10262,7 +10262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAttack: 1
-  attackSelected: 1
+  attackSelected: 0
   slamRequirement: 8
   _fireball: {fileID: 595120116640121088, guid: 424dd92245c86f7498030f44d116f5cd, type: 3}
   _particleSystem: {fileID: 1705422133933255435}

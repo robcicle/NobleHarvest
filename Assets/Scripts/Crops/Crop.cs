@@ -36,6 +36,12 @@ public class Crop : MonoBehaviour
     SpriteRenderer _spriteRenderer;
 
 
+    //relates to removing // harvesting the crop
+    public MapManager _MapManager;
+    CropDestruction _cropDestruction;
+    public int goldYield;
+    public bool canBeHarvested;
+    bool harvestSelected;
 
 
 
@@ -47,6 +53,8 @@ public class Crop : MonoBehaviour
         _cropSlotManager = gameManager.GetComponent<CropSlotManager>();
         _interactableTileMap = GameObject.Find("InteratableTileMap(Dirt Layer)").GetComponent<Tilemap>();
         currentPosition = _interactableTileMap.WorldToCell(gameObject.transform.position); //gets the grid location of the gameobject
+        _MapManager = gameManager.GetComponent<MapManager>();
+        _cropDestruction = GetComponent<CropDestruction>();
 
         isGrowing = true;  // Start the growth process
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -57,6 +65,12 @@ public class Crop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        harvestSelected = _MapManager.harvestSelected;
+        if (growthState == maxStages - 1)
+        {
+            canBeHarvested = true; // check if the crop can be harvested
+        }
+
         switch (_gamePhase.currentTimeIndex) //checks the current time 
         {
             case 0:
@@ -86,18 +100,26 @@ public class Crop : MonoBehaviour
             growthTimer = 0.0f;  // Reset the growth timer
             Grow();              // Grow the crop to the next stage
         }
+
+
+
     }
 
     // Method to grow the crop to the next stage
     void Grow()
     {
+
+
         if (growthState + 1 > maxStages)  // If the next growth stage exceeds the maximum stages
         {
             isGrowing = false;  // Stop the growth process
+           
+           
             return;
         }
 
 
+       // Debug.Log(canBeHarvested);
         growthState++; // Increment the growth stage
 
 
@@ -107,5 +129,30 @@ public class Crop : MonoBehaviour
         //GetComponent<SpriteRenderer>().sprite = CropManager.instance.cropSprites[growthState - 1];  // Set the sprite for the new growth stage
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Debug.Log("Something entered");
+        if(harvestSelected == true)
+        {
+            //Debug.Log("Can Harvest");
+            if (collision.gameObject.tag == "Player" && canBeHarvested == true)
+            {
 
+                EndOfDay.instance.moneyToEarn += goldYield;
+                _MapManager.CropRemoved(transform.position);
+                StartCoroutine(WaitForSlotRemoval());
+                // remove from crop slot
+                // destroy crop
+                // aadd gold to inventory to earn
+
+            }
+        }
+
+
+    }
+    IEnumerator WaitForSlotRemoval()
+    {
+        yield return new WaitForEndOfFrame();   
+        Destroy(gameObject);
+    }
 }
