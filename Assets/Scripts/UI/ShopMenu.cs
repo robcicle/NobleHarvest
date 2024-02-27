@@ -12,8 +12,8 @@ public class ShopMenu : MonoBehaviour
     [Header("Variables")]
     public int currentGold = 20; // gold the player currently has 
     int beetRootCost = 10;
-    int mushroomCost = 25; // integer cost of the items 
-    int lettuceCost = 50;
+    int mushroomCost = 50; // integer cost of the items 
+    int lettuceCost = 150;
     int itemCost; // this is set to the cost of the thing being bought from the options above
     bool menuActive;
 

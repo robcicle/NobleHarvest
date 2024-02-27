@@ -18,6 +18,7 @@ public class EndOfDay : MonoBehaviour
     [SerializeField] GameObject _canInteractText;
     [SerializeField] EconomyScreen _economyScreen;
     [SerializeField] ShopMenu _shopMenu;
+    EnemySpawning _enemySpawning;
 
     public static EndOfDay instance;
 
@@ -28,6 +29,7 @@ public class EndOfDay : MonoBehaviour
         _canInteractText.SetActive(false);
         _shopMenu = GameObject.Find("Canvas").GetComponent<ShopMenu>();
         _economyScreen = GameObject.Find("Canvas").GetComponent<EconomyScreen>();
+        _enemySpawning = GameObject.Find("Enemies").GetComponent<EnemySpawning>();
     }
 
         // Update is called once per frame
@@ -44,6 +46,7 @@ public class EndOfDay : MonoBehaviour
                 _economyScreenUI.SetActive(true); // puts the UI on screen
                 _canInteractText.SetActive(false); // removes the interact text for when the UI is closed
                 moneyToEarn = 0; // resets the gold earned for the day 
+                _enemySpawning.enemiesToSpawn += 0.5f; // increases the number of enemies to spawn on subsequent days
             }
         }
 

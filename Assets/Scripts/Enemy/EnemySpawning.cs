@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemySpawning : MonoBehaviour
 {
     [Header("Variables")]
-    [SerializeField] int enemiesToSpawn = 5;
-    public int difficulty = 1;
+    public float enemiesToSpawn = 5;
+    //public float difficulty = 0;
 
 
     [Header("Spawning")]
@@ -41,14 +41,14 @@ public class EnemySpawning : MonoBehaviour
     {
      
 
-        for (int i = 0; i < Mathf.RoundToInt(difficulty * enemiesToSpawn); i++)
+        for (int i = 0; i < Mathf.RoundToInt(enemiesToSpawn); i++)
         {
             //instantiates the enemys at a random interval, location and adds them as children to the parent of what the script is attached to
             //int randomTimer = Random.Range(2, 4);
 
 
             int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             Instantiate(enemyPrefabs[0], spawnPoints[randomSpawnPoint].position, transform.rotation, this.transform);
 
 

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using TMPro;
@@ -91,25 +92,29 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-       
 
+        if (Input.GetKeyDown(KeyCode.Tab)) // using only pc input
+        {
+            inventoryMenu.SetActive(!menuActive);
+            menuActive = !menuActive;
+        }
         // DEBUG FOR GIVING PLAYER A RANDOM ITEM
-        if (Input.GetKeyDown(KeyCode.J))
-        {            
-            for (int i = 0; i < 10; i++)
-            {
-                int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
-                AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
-            }
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{            
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+        //        AddItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+        //    }
 
            
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
+        //}
+        //else if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    int random = Random.Range(0, ItemManager.instance.itemSOs.Length);  // Get a random index within the range of itemSOs array
 
-            RemoveItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
-        }
+        //    RemoveItem(ItemManager.instance.itemSOs[random]);  // Add the randomly selected item to the inventory
+        //}
     }
 
     // Update the state of the inventory menu aka open or close it.

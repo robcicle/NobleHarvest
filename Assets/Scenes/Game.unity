@@ -220,7 +220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &64763528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2929,7 +2929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1744598693
 Transform:
   m_ObjectHideFlags: 0
@@ -3067,6 +3067,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 970559566284595775, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 970559566284595775, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1471305412501075835, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
       propertyPath: m_ActionEvents.Array.size
       value: 3
@@ -3135,13 +3143,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Placeholder Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4827177110239900705, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5860658028508724739, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5860658028508724739, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3393,7 +3405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2112645572
 Transform:
   m_ObjectHideFlags: 0
@@ -3546,6 +3558,10 @@ PrefabInstance:
     - target: {fileID: 6005600834239354423, guid: 8cf92b2e3cf94b24f8df5ba3699c1c19, type: 3}
       propertyPath: m_Name
       value: GameController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005600834239354423, guid: 8cf92b2e3cf94b24f8df5ba3699c1c19, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
