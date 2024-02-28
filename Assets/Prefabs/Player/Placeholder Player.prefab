@@ -10020,6 +10020,7 @@ GameObject:
   - component: {fileID: 1921815410911357404}
   - component: {fileID: 6871782161934757119}
   - component: {fileID: -2943324526200133088}
+  - component: {fileID: 4175202242503360112}
   m_Layer: 6
   m_Name: Placeholder Player
   m_TagString: Player
@@ -10270,8 +10271,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _attackChargeMeter: {fileID: 8913383787041106270}
-  _playerCamera: {fileID: 0}
+  _playerCamera: {fileID: 2979724938279863021}
   projectileSpeed: 20
+--- !u!95 &4175202242503360112
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827177110239900705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ade7a46c0c0f7a428a321e7433aedf3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4918276169207928557
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,18 +13,42 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 20.0f;
     bool inputDisabled = false;
     float horizontal;
+    float vertical;
     bool isFacingRight;
+
+    Animator _characterAnimator; //reference to the character animator
+
 
     private void Start()
     {
         // Assign our member rigidbody to our player's one.
         rb = GetComponent<Rigidbody2D>();
+        _characterAnimator = GetComponent<Animator>();
 
     }
 
     public void Update()
     {
-        horizontal = rb.velocity.x; // checks the horizontal speed of the enemy
+        _characterAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
+        _characterAnimator.SetFloat("VSpeed", Mathf.Abs(vertical));
+        //Debug.Log("horizontal" + horizontal);
+        //Debug.Log("Vertical" + vertical);
+
+        if(horizontal > 0.01 || vertical > 0.01 || horizontal < -0.01f || vertical < -0.01f)
+        {
+            _characterAnimator.SetBool("isMoving", true);
+        }
+        else
+        {
+            _characterAnimator.SetBool("isMoving", false);
+        }
+     
+
+
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+        // rb.velocity.x;
+
         FlipSprite(); // flips the sprite to the correct direction 
     }
 

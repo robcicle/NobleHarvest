@@ -52,6 +52,8 @@ public class MapManager : MonoBehaviour
     public bool harvestSelected;
     public bool plantingSelected;
 
+    [SerializeField] Animator _characterAnimator;
+
 
 
 
@@ -72,6 +74,11 @@ public class MapManager : MonoBehaviour
         }
 
        // Debug.Log(itemSelectedIndex);
+    }
+
+    public void Start()
+    {
+        _characterAnimator = GameObject.FindWithTag("Player").GetComponent<Animator>();
     }
 
     private void Update()
@@ -111,6 +118,7 @@ public class MapManager : MonoBehaviour
             // 
             if (isUntilledSoil == true && cultivatingSelected == true)
             {
+                _characterAnimator.SetTrigger("Interact");
                 TillSoil(gridPosition);
                 // if till soil option is selected
                 // cultivate soil and change it to tilled soil
@@ -123,10 +131,12 @@ public class MapManager : MonoBehaviour
 
                     if (_cropSlotManager.CheckTileWatered(gridPosition) == true) // can also be planted if the soil is watered
                     {
+                        _characterAnimator.SetTrigger("Interact");
                         PlantCrop(gridPosition);
                     }
                     else
                     {
+                        _characterAnimator.SetTrigger("Interact");
                         PlantCrop(gridPosition);
                     }
                     //Debug.Log("Planting seed");
@@ -139,7 +149,7 @@ public class MapManager : MonoBehaviour
                 }
                 else if (_cropSlotManager.CheckTileEmpty(gridPosition) == false && _waterSpell.currentWaterLevel > 0) // if the grid slot is occupied water the soil instead if there is water available
                 {
-
+                    _characterAnimator.SetTrigger("Interact");
                     //Debug.Log("Watering");
                     WaterSoil(gridPosition);
 
@@ -197,7 +207,7 @@ public class MapManager : MonoBehaviour
 
     public void CollectWater()
     {
-
+        _characterAnimator.SetTrigger("Interact");
         _waterSpell.FillWaterMeter();
 
         //Debug.Log("Water Spell filled up");

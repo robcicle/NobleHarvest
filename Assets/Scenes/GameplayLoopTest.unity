@@ -3348,6 +3348,10 @@ PrefabInstance:
       propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4175202242503360112, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2fa30d261734c19499a0e1a82288271f, type: 2}
     - target: {fileID: 4827177110239900705, guid: 0b35cd0525e0a00409a0ba3c515ae85f, type: 3}
       propertyPath: m_Name
       value: Placeholder Player
@@ -13434,8 +13438,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00009998679, y: 0.00020000339, z: 0}
-    m_Extent: {x: 0.86010003, y: 0.8607, z: 0}
+    m_Center: {x: -0.00055000186, y: -0.00024998188, z: 0}
+    m_Extent: {x: 0.85985005, y: 0.86025, z: 0}
   m_PointLightInnerAngle: 359.99997
   m_PointLightOuterAngle: 359.99997
   m_PointLightInnerRadius: 9
