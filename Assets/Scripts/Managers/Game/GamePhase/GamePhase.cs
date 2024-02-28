@@ -11,7 +11,7 @@ public class GamePhase : MonoBehaviour
     [Header("Variables")]
     [SerializeField] int startEnemySpawning;
     [SerializeField] bool canEndDay;
-    float timerInterval = 2; // default was 7, felt a bit long
+    float timerInterval = 1.85f; // default was 7, felt a bit long
     float currentTime; // the actual time
     public int currentTimeIndex; // used to keep track of game states
     public bool haveEnemiesSpawned;

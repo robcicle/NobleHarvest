@@ -152,6 +152,8 @@ public class PlayerCombat : MonoBehaviour
     public void SlamAttack()
     {
 
+        _playerAudio.clip = _slameAudio;
+        _playerAudio.Play();
         float damage = 50;
         StartCoroutine(ExpandParticles());
 
