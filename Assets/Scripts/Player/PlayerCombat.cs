@@ -18,6 +18,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] SlamAttackChargeMeter _attackChargeMeter;
     [SerializeField] Camera _playerCamera;
     Animator _characterAnimator;
+    [SerializeField] AudioClip _fireballAudio;
+    AudioSource _playerAudio;
+    [SerializeField] AudioClip _slameAudio;
 
     [Header("Values to pass")]
     public float projectileSpeed = 20f;
@@ -29,6 +32,8 @@ public class PlayerCombat : MonoBehaviour
     {
         _characterAnimator = GetComponent<Animator>();
         _attackChargeMeter.SetMaxCharge(slamRequirement);
+        _playerAudio = GetComponent<AudioSource>();
+        attackSelected = false;
     }
     // Update is called once per frame
     void Update()
@@ -48,7 +53,7 @@ public class PlayerCombat : MonoBehaviour
         if(attackSelected == true)
         {
             if (Input.GetMouseButton(0) && canAttack == true)
-            {
+            { 
                 _characterAnimator.SetTrigger("Attack");
                 //gets the current position of the player and the current mouse cursor position
                 //creates a direction and a force in that direction
@@ -124,6 +129,10 @@ public class PlayerCombat : MonoBehaviour
     //summon on attack frame of animation
     public void SpawnFireBall()
     {
+        
+            _playerAudio.clip = _fireballAudio;
+            _playerAudio.Play();
+
         currentPosition = transform.position;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // gets mouse position in worldspace
 

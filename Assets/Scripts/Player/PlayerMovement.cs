@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,8 +16,9 @@ public class PlayerMovement : MonoBehaviour
     bool isFacingRight;
 
     Animator _characterAnimator; //reference to the character animator
-
-
+    [SerializeField] AudioSource _playerAudio;
+    int audioPlayCount = 1;
+    
     private void Start()
     {
         // Assign our member rigidbody to our player's one.
@@ -36,10 +36,18 @@ public class PlayerMovement : MonoBehaviour
 
         if(horizontal > 0.01 || vertical > 0.01 || horizontal < -0.01f || vertical < -0.01f)
         {
+            if (audioPlayCount > 0)
+            {
+               //Debug.Log("Playing audio");
+                
+                StartCoroutine(AudioCount());
+           
+            }
             _characterAnimator.SetBool("isMoving", true);
         }
         else
         {
+            audioPlayCount = 1;
             _characterAnimator.SetBool("isMoving", false);
         }
      
@@ -99,5 +107,15 @@ public class PlayerMovement : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    IEnumerator AudioCount()
+    {
+
+        _playerAudio.Play();
+        yield return new WaitForSeconds(0.1f);
+        audioPlayCount--;
+
+
     }
 }

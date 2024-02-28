@@ -6,8 +6,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
-using UnityEngine.WSA;
-using static UnityEditor.Progress;
 
 public class MapManager : MonoBehaviour
 {
@@ -53,8 +51,11 @@ public class MapManager : MonoBehaviour
     public bool plantingSelected;
 
     [SerializeField] Animator _characterAnimator;
+    [SerializeField] AudioSource _characterAudio;
+    [SerializeField] AudioClip _interactSpell;
+    [SerializeField] AudioClip _spellNoise1;
 
-
+    bool canInteract = true; // small cooldown
 
 
     private Dictionary<TileBase, TileData> dataFromTiles; // dictionary of the different tiles that have been made from the SO
@@ -86,7 +87,7 @@ public class MapManager : MonoBehaviour
         _playerTransform = _player.transform;
 
 
-        if (Input.GetMouseButtonDown(0) && WithinRange()) // on left click, only gets it once not when held
+        if (Input.GetMouseButtonDown(0) && WithinRange() && canInteract == true) // on left click, only gets it once not when held
         {
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //gets mouse position
@@ -107,6 +108,7 @@ public class MapManager : MonoBehaviour
 
             if (isWaterTile == true)
             {
+
                 CollectWater();
             }
 
@@ -116,12 +118,13 @@ public class MapManager : MonoBehaviour
             // dont actually know why i made this, might do something with it 
             //}
             // 
-            if (isUntilledSoil == true && cultivatingSelected == true)
+            if (isUntilledSoil == true && cultivatingSelected == true && canInteract == true)
             {
                 _characterAnimator.SetTrigger("Interact");
                 TillSoil(gridPosition);
                 // if till soil option is selected
                 // cultivate soil and change it to tilled soil
+                StartCoroutine(InteractCooldown());
             }
 
             if (plantingSelected == true && isDayTime == true)
@@ -131,13 +134,16 @@ public class MapManager : MonoBehaviour
 
                     if (_cropSlotManager.CheckTileWatered(gridPosition) == true) // can also be planted if the soil is watered
                     {
-                        _characterAnimator.SetTrigger("Interact");
+
                         PlantCrop(gridPosition);
+
+                        StartCoroutine(InteractCooldown());
                     }
                     else
                     {
-                        _characterAnimator.SetTrigger("Interact");
                         PlantCrop(gridPosition);
+
+                        StartCoroutine(InteractCooldown());
                     }
                     //Debug.Log("Planting seed");
 
@@ -183,6 +189,10 @@ public class MapManager : MonoBehaviour
                 {
                     //Debug.Log("Planted crop");
 
+                    _characterAudio.clip = _interactSpell;
+                    _characterAudio.Play();
+                    _characterAnimator.SetTrigger("Interact");
+
                     Instantiate(_cropSelected, gridPosition, transform.rotation, _cropListParent.transform); //create the crop selected at that grid position
                     _cropSlotManager.cropSlots.Add(gridPosition, true); // if a crop has been planted then add it to the dictionary of occupied slots
                     _economyScreen.cropsPlanted++; // changes the end of day stats to represent what the player has done
@@ -212,6 +222,8 @@ public class MapManager : MonoBehaviour
 
         //Debug.Log("Water Spell filled up");
 
+        _characterAudio.clip = _spellNoise1;
+        _characterAudio.Play();
 
         // update water meter UI
         // play animation      
@@ -280,5 +292,11 @@ public class MapManager : MonoBehaviour
         _cropSlotManager.cropSlots.Remove(gridPosition);
         _cropSlotManager.wateredTiles.Remove(gridPosition);
         _interactableTileMap.SetTile(gridPosition, _untilledSoil);
+    }
+    IEnumerator InteractCooldown()
+    {
+        canInteract = false;
+        yield return new WaitForSeconds(0.7f);
+        canInteract = true;
     }
 }

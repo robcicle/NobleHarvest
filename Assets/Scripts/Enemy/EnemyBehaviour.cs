@@ -6,7 +6,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using Random = UnityEngine.Random;
 
 public class EnemyBehaviour : MonoBehaviour

@@ -20,6 +20,8 @@ public class ShopMenu : MonoBehaviour
     [Header("References")]
     public GameObject _ShopMenu; // reference to the shop ui
     InventoryManager _inventoryManager;
+    [SerializeField] AudioSource _menuAudio;
+    [SerializeField] AudioClip _menuAudioClip;
 
     [Header("Shop UI Text References")]
     public TextMeshProUGUI _eldritchMushroomText; // the text cost of the item 
@@ -36,6 +38,7 @@ public class ShopMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+ 
         itemsToBuy = new GameObject[itemSlots.transform.childCount];
 
         for(int i = 0; i <itemSlots.transform.childCount; i++) // populates the list with the children of the game object
@@ -102,6 +105,7 @@ public class ShopMenu : MonoBehaviour
                
         }
 
+        _menuAudio.Play();
 
         if(currentGold >= itemCost)
         {        

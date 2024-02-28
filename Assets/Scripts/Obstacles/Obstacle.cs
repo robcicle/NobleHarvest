@@ -60,6 +60,7 @@ public class Obstacle : MonoBehaviour
         if (_shopMenu.currentGold >= removalCost)
         {
             Destroy(gameObject);
+            _costManager.IncreaseCost();
         }
         else
         {

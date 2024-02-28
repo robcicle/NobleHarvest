@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
 
 public class InventoryManager : MonoBehaviour
@@ -88,6 +87,11 @@ public class InventoryManager : MonoBehaviour
 
             
         }
+
+
+         var firstItem = ItemManager.instance.itemSOs[0];
+         AddItem(firstItem, 3); // add 3 of the 1st item in the inventory
+        
     }
 
     private void Update()
